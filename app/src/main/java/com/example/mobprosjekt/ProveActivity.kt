@@ -11,22 +11,21 @@ import com.example.mobprosjekt.databinding.ActivityMainBinding
 import com.example.mobprosjekt.databinding.ActivityProveBinding
 
 class ProveActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityProveBinding
-    lateinit var toggle: ActionBarDrawerToggle
+    lateinit var binding: ActivityProveBinding
+    lateinit var toggle: ActionBarDrawerToggle // Hamburger ikon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prove)
 
+        toggle = ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-            toggle = ActionBarDrawerToggle(this@ProveActivity,binding.drawerLayout,R.string.open,R.string.close)
-            binding.drawerLayout.addDrawerListener(toggle)
-            toggle.syncState()
+        // to make the Navigation drawer icon always appear on the action bar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            // to make the Navigation drawer icon always appear on the action bar
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        binding.navView2.setNavigationItemSelectedListener {
+        binding.navView.setNavigationItemSelectedListener {
                 when(it.itemId){
                     R.id.hjemItem->{ velgSide(binding.drawerLayout,1) }
                     R.id.profilItem->{ velgSide(binding.drawerLayout,2) }

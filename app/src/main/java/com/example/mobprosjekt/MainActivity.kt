@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.databinding.DataBindingUtil
 import com.example.mobprosjekt.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,26 +16,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.apply {
-            toggle= ActionBarDrawerToggle(this@MainActivity,drawerLayout,R.string.open,R.string.close)
-            drawerLayout.addDrawerListener(toggle)
-            toggle.syncState()
+        toggle= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-            // to make the Navigation drawer icon always appear on the action bar
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // Sørger for at Navigasjonsbar ikonet alltid ligger på actionbaren
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            navView2.setNavigationItemSelectedListener {
+        binding.navView.setNavigationItemSelectedListener {
                 when(it.itemId){
-                    R.id.hjemItem->{ velgSide(drawerLayout,1) }
-                    R.id.profilItem->{ velgSide(drawerLayout,2) }
-                    R.id.loginItem->{ velgSide(drawerLayout,3) }
+                    R.id.hjemItem->{ velgSide(binding.drawerLayout,1) }
+                    R.id.profilItem->{ velgSide(binding.drawerLayout,2) }
+                    R.id.loginItem->{ velgSide(binding.drawerLayout,3) }
                 }
                 true
             }
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
