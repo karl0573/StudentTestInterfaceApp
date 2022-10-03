@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MOBProsjekt</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="applikasjonNavn">StudentTestInterface</string>
+    <string name="login_side">login side</string>
+    <string name="login">Login</string>
+    <string name="passord">Passord</string>
+    <string name="neste_knapp_txt">Neste ></string>
+    <string name="avslutt_knapp_txt">Avslutt</string>
+    <string name="resultatTxt">Ditt resultat</string>
+    <string name="scoreTxt">Din score: 7/10</string>
+    <string name="mineProver">Mine prøver</string>
+    <string name="endreNavn">Endre</string>
+    <string name="slettProve">Slett</string>
+</resources>

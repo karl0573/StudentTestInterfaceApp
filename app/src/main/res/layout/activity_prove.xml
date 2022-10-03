@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawerLayout"
+        tools:context=".ProveActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ProveActivity">
+
+        <LinearLayout
+            android:id="@+id/resultat_skjerm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resultatTxt"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scoreTxt"
+                android:textSize="24sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="avsluttProve"
+                android:text="@string/avslutt_knapp_txt" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/contactgroup"
+            android:layout_width="285dp"
+            android:layout_height="240dp"
+            android:background="@drawable/border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:text="Oppgavetekst"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Svaralternativ 1" />
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Svaralternativ 2" />
+
+            <RadioButton
+                android:id="@+id/radio3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Svaralternativ 3" />
+
+            <RadioButton
+                android:id="@+id/radio4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Svaralternativ 4" />
+
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="visResultat"
+            android:text="@string/neste_knapp_txt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.748" />
+
+        <TextView
+            android:id="@+id/antSpm"
+            android:layout_width="118dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="141dp"
+            android:text="Spørsmål 1/10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.804" />
+
+        <ProgressBar
+            android:id="@+id/progresjonBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:scaleY="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.888"
+            android:max="10"
+            android:progress="1"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:menu="@menu/nav_menu"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>
