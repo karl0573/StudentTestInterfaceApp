@@ -18,23 +18,23 @@ class ProveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prove)
 
-        binding.apply {
-            toggle = ActionBarDrawerToggle(this@ProveActivity,drawerLayout,R.string.open,R.string.close)
-            drawerLayout.addDrawerListener(toggle)
+
+            toggle = ActionBarDrawerToggle(this@ProveActivity,binding.drawerLayout,R.string.open,R.string.close)
+            binding.drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
 
             // to make the Navigation drawer icon always appear on the action bar
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            navView2.setNavigationItemSelectedListener {
+        binding.navView2.setNavigationItemSelectedListener {
                 when(it.itemId){
-                    R.id.hjemItem->{ velgSide(drawerLayout,1) }
-                    R.id.profilItem->{ velgSide(drawerLayout,2) }
-                    R.id.loginItem->{ velgSide(drawerLayout,3) }
+                    R.id.hjemItem->{ velgSide(binding.drawerLayout,1) }
+                    R.id.profilItem->{ velgSide(binding.drawerLayout,2) }
+                    R.id.loginItem->{ velgSide(binding.drawerLayout,3) }
                 }
                 true
             }
-        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
