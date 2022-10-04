@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // Sørger for at Navigasjonsbar ikonet alltid ligger på actionbaren
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.navView.setNavigationItemSelectedListener {

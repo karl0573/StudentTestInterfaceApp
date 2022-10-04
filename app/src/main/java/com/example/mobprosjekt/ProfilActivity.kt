@@ -21,7 +21,6 @@ class ProfilActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // to make the Navigation drawer icon always appear on the action bar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.navView.setNavigationItemSelectedListener {
