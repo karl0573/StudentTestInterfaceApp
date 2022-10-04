@@ -11,15 +11,15 @@ import com.example.mobprosjekt.databinding.ActivityProfilBinding
 
 class ProfilActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfilBinding
-    lateinit var toggle: ActionBarDrawerToggle
+    lateinit var hamburgerIkon: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profil)
 
-        toggle= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        hamburgerIkon= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(hamburgerIkon)
+        hamburgerIkon.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -35,7 +35,7 @@ class ProfilActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)) {
+        if(hamburgerIkon.onOptionsItemSelected(item)) {
             true
         }
         return super.onOptionsItemSelected(item)

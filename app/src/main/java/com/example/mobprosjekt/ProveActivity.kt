@@ -7,20 +7,19 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
-import com.example.mobprosjekt.databinding.ActivityMainBinding
 import com.example.mobprosjekt.databinding.ActivityProveBinding
 
 class ProveActivity : AppCompatActivity() {
     lateinit var binding: ActivityProveBinding
-    lateinit var toggle: ActionBarDrawerToggle // Hamburger ikon
+    lateinit var hamburgerIkon: ActionBarDrawerToggle // Hamburger ikon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prove)
 
-        toggle = ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        hamburgerIkon = ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(hamburgerIkon)
+        hamburgerIkon.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -36,7 +35,7 @@ class ProveActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)) {
+        if(hamburgerIkon.onOptionsItemSelected(item)) {
             true
         }
         return super.onOptionsItemSelected(item)
