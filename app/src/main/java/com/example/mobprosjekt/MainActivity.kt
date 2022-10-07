@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mobprosjekt.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,11 +19,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+
+
         hamburgerIkon= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
         binding.drawerLayout.addDrawerListener(hamburgerIkon)
         hamburgerIkon.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        proveData()
+        val mainActivity = this
+        binding.recyclerView.apply {
+            layoutManager = GridLayoutManager(applicationContext, 3)
+            adapter = KortAdapter(proveListe)
+        }
 
         binding.navView.setNavigationItemSelectedListener {
                 when(it.itemId){
@@ -31,6 +42,16 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+    }
+
+    private fun proveData() {
+
+        val testProve = Prove(
+            R.drawable.blyant,
+            "Vebjorn",
+            "The wonders of the female body"
+        )
+        proveListe.add(testProve)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
