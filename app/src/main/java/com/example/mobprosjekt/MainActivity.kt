@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
 
         val testProve = Prove(
             R.drawable.blyant,
-            "Vebjorn",
-            "Hvorfor SQL kan forrutsake kreft"
+            "EksempelNavn",
+            "EksempelData"
         )
         proveListe.add(testProve)
     }
