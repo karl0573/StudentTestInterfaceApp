@@ -1,11 +1,14 @@
 package com.example.mobprosjekt
 
+import com.squareup.moshi.Json
+
 var proveListe = mutableListOf<Prove>()
 
-class Prove (
+data class Prove (
     var bilde: Int,
     var bruker: String,
-    var tittel: String,
+    @Json(name = "proveNavn")
+    var tittel:String,
 val id: Int? = proveListe.size
 
 )
