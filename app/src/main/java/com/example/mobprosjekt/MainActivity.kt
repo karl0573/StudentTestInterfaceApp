@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         proveData()
         val mainActivity = this
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(applicationContext, 3)
+            layoutManager = GridLayoutManager(applicationContext, 1)
             adapter = KortAdapter(proveListe)
         }
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val testProve = Prove(
             R.drawable.blyant,
             "Vebjorn",
-            "The wonders of the female body"
+            "Hvorfor SQL kan forrutsake kreft"
         )
         proveListe.add(testProve)
     }
