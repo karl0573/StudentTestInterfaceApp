@@ -21,7 +21,7 @@ interface STIAPIService {
     @GET("BrukerQuiz")
     suspend fun getAlleProver(): List<Prove>
     @GET("BrukerQuiz/{proveNavn}")
-    suspend fun getProve(@Path("proveNavn") proveNavn:String): Prove
+    suspend fun getProve(@Path("proveNavn") tittel:String): Prove
 }
 
 object STIApi {

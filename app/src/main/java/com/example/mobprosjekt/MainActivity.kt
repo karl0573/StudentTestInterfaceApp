@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
 
         val testProve = Prove(
             R.drawable.blyant,
-            "EksempelNavn",
-            "EksempelData"
+            "EksempelBruker",
+            "EksempelTittel"
         )
         proveListe.add(testProve)
     }
