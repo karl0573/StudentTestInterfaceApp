@@ -1,8 +1,10 @@
 package com.example.mobprosjekt
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -10,6 +12,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mobprosjekt.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
+import retrofit2.awaitResponse
+import retrofit2.Retrofit.Builder
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -45,14 +54,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun proveData() {
+        GlobalScope.launch(Dispatchers.IO) {
+            try{
+            val response =  STIApi.retrofitService.getAlleProver().awaitResponse()
+            if(response.isSuccessful) {
+                val data = response.body()!!
+                proveListe.add(data)
 
-        val testProve = Prove(
-            R.drawable.blyant,
-            "EksempelBruker",
-            "EksempelTittel"
-        )
-        proveListe.add(testProve)
-    }
+                withContext(Dispatchers.Main) {
+
+
+                }
+            }
+
+            } catch(e: Exception) {
+
+                }
+        }
+/*val testProve = Prove(
+    R.drawable.blyant,
+    "EksempelBruker",
+    "EksempelTittel"
+)
+proveListe.add(testProve)*/
+        }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(hamburgerIkon.onOptionsItemSelected(item)) {
