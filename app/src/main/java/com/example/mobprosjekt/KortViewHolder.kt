@@ -8,7 +8,7 @@ class KortViewHolder(
 ) : RecyclerView.ViewHolder(cardCellBinding.root) {
 
     fun bindProve(prove: Prove) {
-
+        cardCellBinding.cardImage.setImageResource(R.drawable.blyant)
         cardCellBinding.cardTittel.text = prove.proveNavn
         cardCellBinding.cardBruker.text = prove.brukerId.toString()
 

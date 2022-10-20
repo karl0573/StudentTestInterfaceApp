@@ -20,7 +20,7 @@ private val retrofit = Retrofit.Builder()
 
 interface STIAPIService {
     @GET("BrukerQuiz")
-    fun getAlleProver(): Call<Prove>
+    fun getAlleProver(): Call<proveJson>
     @GET("BrukerQuiz/{proveNavn}")
     suspend fun getProve(@Path("proveNavn") tittel:String): Prove
 }

@@ -13,7 +13,7 @@ class ProveViewModel : ViewModel() {
     private val _status = MutableLiveData<STIApiStatus>()
     val status: LiveData<STIApiStatus> = _status
     private val _prover = MutableLiveData<List<Prove>>()
-    val prove: LiveData<List<Prove>> = _prover
+    val prove: MutableLiveData<List<Prove>> = _prover
 
    init {getAlleProver()}
 

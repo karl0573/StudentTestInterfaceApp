@@ -61,8 +61,12 @@ class MainActivity : AppCompatActivity() {
                 val data = response.body()!!
                 proveListe.add(data)
 
+
                 withContext(Dispatchers.Main) {
 
+var testerS : TextView =  findViewById(R.id.tekstTesting)
+                  //  testerS.setText(data.proveNavn)
+                    testerS.text = data.records[0].toString()
 
                 }
             }
@@ -71,12 +75,11 @@ class MainActivity : AppCompatActivity() {
 
                 }
         }
-/*val testProve = Prove(
-    R.drawable.blyant,
-    "EksempelBruker",
-    "EksempelTittel"
-)
-proveListe.add(testProve)*/
+       /* val testProve = Prove(
+            1,
+            "EksempelTittel"
+        )
+        proveListe.add(testProve)*/
         }
 
 
