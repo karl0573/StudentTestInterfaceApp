@@ -1,10 +1,8 @@
 package com.example.mobprosjekt
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -16,9 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
 import retrofit2.awaitResponse
-import retrofit2.Retrofit.Builder
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -59,7 +55,10 @@ class MainActivity : AppCompatActivity() {
             val response =  STIApi.retrofitService.getAlleProver().awaitResponse()
             if(response.isSuccessful) {
                 val data = response.body()!!
-                proveListe.add(data)
+
+                recordListe.add(data)
+                println(data.records[0])
+                println("yes")
 
 
                 withContext(Dispatchers.Main) {

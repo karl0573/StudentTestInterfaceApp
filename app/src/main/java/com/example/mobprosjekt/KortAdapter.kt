@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobprosjekt.databinding.ProveCardLayoutBinding
 
-class KortAdapter(private val prove: List<Prove>)
+class KortAdapter(private val prove: MutableList<Record>)
     : RecyclerView.Adapter<KortViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KortViewHolder {

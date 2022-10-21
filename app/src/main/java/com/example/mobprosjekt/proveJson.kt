@@ -1,6 +1,6 @@
 package com.example.mobprosjekt
 
-var proveListe = mutableListOf<proveJson>()
+var recordListe = mutableListOf<proveJson>()
 
 data class proveJson(
     val records: List<Record>
