@@ -1,4 +1,4 @@
-package com.example.datahentingtest
+package com.example.datahentingtest.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

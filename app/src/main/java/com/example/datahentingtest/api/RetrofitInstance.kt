@@ -18,9 +18,7 @@ object RetrofitInstance {
             .build()
     }
 
-    val api: SimpleAPI by lazy {
-        retrofit.create(SimpleAPI::class.java)
+    val api: SQLAPI by lazy {
+        retrofit.create(SQLAPI::class.java)
     }
-
-
 }
