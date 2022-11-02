@@ -9,11 +9,6 @@
     android:id="@+id/drawerLayout"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tekstTesting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

@@ -3,22 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Sigve/Desktop/Enda nyere git testing/StudentTestInterfaceApp/app/src/main/res/layout-land/activity_login.xml" value="0.31040564373897706" />
-        <entry key="..\:/Users/Sigve/Desktop/Enda nyere git testing/StudentTestInterfaceApp/app/src/main/res/layout-land/activity_profil.xml" value="0.31040564373897706" />
-        <entry key="..\:/Users/Sigve/Desktop/Enda nyere git testing/StudentTestInterfaceApp/app/src/main/res/layout-land/activity_prove.xml" value="0.31040564373897706" />
-        <entry key="..\:/Users/Sigve/Desktop/Enda nyere git testing/StudentTestInterfaceApp/app/src/main/res/layout/activity_login.xml" value="0.3446557971014493" />
-        <entry key="..\:/Users/Sigve/Desktop/Enda nyere git testing/StudentTestInterfaceApp/app/src/main/res/layout/activity_main.xml" value="0.3446557971014493" />
-        <entry key="..\:/Users/Sigve/Desktop/Enda nyere git testing/StudentTestInterfaceApp/app/src/main/res/layout/activity_profil.xml" value="0.3446557971014493" />
-        <entry key="..\:/Users/Sigve/Desktop/Enda nyere git testing/StudentTestInterfaceApp/app/src/main/res/layout/activity_prove.xml" value="0.3446557971014493" />
-        <entry key="..\:/Users/Sigve/Desktop/Enda nyere git testing/StudentTestInterfaceApp/app/src/main/res/menu/nav_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/vebte/AndroidStudioProjects/StudentTestInterfaceApp/app/src/main/res/layout-land/activity_login.xml" value="0.21164021164021163" />
-        <entry key="..\:/Users/vebte/AndroidStudioProjects/StudentTestInterfaceApp/app/src/main/res/layout-land/activity_profil.xml" value="0.21164021164021163" />
-        <entry key="..\:/Users/vebte/AndroidStudioProjects/StudentTestInterfaceApp/app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="..\:/Users/vebte/AndroidStudioProjects/StudentTestInterfaceApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/vebte/AndroidStudioProjects/StudentTestInterfaceApp/app/src/main/res/layout/activity_profil.xml" value="0.33" />
-        <entry key="..\:/Users/vebte/AndroidStudioProjects/StudentTestInterfaceApp/app/src/main/res/layout/activity_prove.xml" value="0.25" />
-        <entry key="..\:/Users/vebte/AndroidStudioProjects/StudentTestInterfaceApp/app/src/main/res/layout/prove_card_layout.xml" value="0.1" />
-        <entry key="..\:/Users/vebte/AndroidStudioProjects/StudentTestInterfaceApp/app/src/main/res/menu/nav_menu.xml" value="0.25" />
+        <entry key="..\:/Users/vebte/AndroidStudioProjects/datahentingtest/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
       </map>
     </option>
   </component>
