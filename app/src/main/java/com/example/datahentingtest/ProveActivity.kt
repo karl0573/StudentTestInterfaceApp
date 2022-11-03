@@ -31,6 +31,8 @@ class ProveActivity : AppCompatActivity() {
     var antallSporsmal = 0
     var poengsum = 0
     var indexPos = 0;
+    lateinit var fastSvarListe: MutableList<Svar>
+    lateinit var huskKnappTab : MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +58,24 @@ class ProveActivity : AppCompatActivity() {
         }
     }
 
+    fun getSvar(): MutableList<Svar> {
+        var listen = mutableListOf<Svar>()
+        var i = 0
+        while(i < prøveListe.size) {
+            var svarListe = listOf(prøveListe.get(i).RiktigSvar, prøveListe.get(i).Svar2,  prøveListe.get(i).Svar3, prøveListe.get(i).Svar4)
+            var randomListe = svarListe.shuffled()
+            var svark = Svar(
+                randomListe[0],
+                randomListe[1],
+                randomListe[2],
+                randomListe[3],
+            )
+            listen.add(svark)
+            i++
+        }
+        return listen
+    }
+
     private fun hentProveData(proveNavn: String) {
         prøveListe = mutableListOf<Prove>()
         val repository = Repository()
@@ -79,6 +99,7 @@ class ProveActivity : AppCompatActivity() {
                 }
                 antallSporsmal = prøveListe.size
                 binding.progresjonBar.max = antallSporsmal
+                fastSvarListe = getSvar()
                 oppdater()
             }
             else {
@@ -86,6 +107,8 @@ class ProveActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     private fun kortFraID(kortID: String): Kort? {
         for(kort in kortListe) {
@@ -109,6 +132,7 @@ class ProveActivity : AppCompatActivity() {
             binding.antSpm.visibility = View.GONE
             binding.progresjonBar.visibility = View.GONE
             binding.button2.visibility = View.GONE
+            binding.forrigeKnapp!!.visibility = View.GONE
             binding.resultatSkjerm.visibility = View.VISIBLE
         }
         else {
@@ -118,41 +142,81 @@ class ProveActivity : AppCompatActivity() {
             else {
                 when (binding.contactgroup.checkedRadioButtonId) {
                     R.id.radio1 -> {
-                        if (binding.radio1.text == riktigSvaret)
+                        if (binding.radio1.text == riktigSvaret) {
                             poengsum += 1
+                        }
+                        //huskKnappTab[indexPos] = "en"
                     }
                     R.id.radio2 -> {
-                        if (binding.radio2.text == riktigSvaret)
+                        if (binding.radio2.text == riktigSvaret) {
                             poengsum += 1
+                        }
+                       // huskKnappTab[indexPos] = "to"
                     }
                     R.id.radio3 -> {
-                        if (binding.radio3.text == riktigSvaret)
+                        if (binding.radio3.text == riktigSvaret) {
                             poengsum += 1
+                        }
+                        // huskKnappTab[indexPos] = "tre"
                     }
                     R.id.radio4 -> {
-                        if (binding.radio4.text == riktigSvaret)
+                        if (binding.radio4.text == riktigSvaret) {
                             poengsum += 1
+                        }
+                        // huskKnappTab[indexPos] = "fire"
                     }
                 }
                 binding.contactgroup.clearCheck()
                 binding.progresjonBar.setProgress(spørsmålNr)
                 indexPos += 1
                 spørsmålNr += 1
+                if(spørsmålNr > 1) {
+                    binding.forrigeKnapp!!.visibility = View.VISIBLE
+                }
                 oppdater()
             }
         }
     }
 
+    fun forrigeSpørsmål(view: View) {
+       //binding.contactgroup.clearCheck()
+        spørsmålNr -= 1
+        indexPos -= 1
+        poengsum -=1
+        binding.progresjonBar.setProgress(spørsmålNr-1)
+       // binding.radio1.isChecked = true
+      //  Log.d("Response", huskKnappTab[indexPos].toString())
+/**
+        if (huskKnappTab[indexPos].equals("en")) {
+            binding.contactgroup.check(R.id.radio1);
+        }
+        else if(huskKnappTab[indexPos].equals("to")) {
+            binding.contactgroup.check(R.id.radio2);
+        }
+        else if(huskKnappTab[indexPos].equals("tre")) {
+            binding.contactgroup.check(R.id.radio3);
+        }
+        else if(huskKnappTab[indexPos].equals("fire")) {
+            binding.contactgroup.check(R.id.radio4);
+        }
+*/
+        if(spørsmålNr == 1) {
+            binding.forrigeKnapp!!.visibility = View.GONE
+            poengsum = 0
+        }
+        oppdater()
+    }
+
     fun oppdater() {
         binding.antSpm.text = "Spørsmål: $spørsmålNr/$antallSporsmal"
         riktigSvaret = prøveListe.get(indexPos).RiktigSvar
-        val svarListe = listOf(prøveListe.get(indexPos).RiktigSvar, prøveListe.get(indexPos).Svar2, prøveListe.get(indexPos).Svar3, prøveListe.get(indexPos).Svar4)
-        var randomListe = svarListe.shuffled()
         binding.radiogruppeTekst!!.text = prøveListe.get(indexPos).OppgaveTekst
-        binding.radio1.text = randomListe[0]
-        binding.radio2.text = randomListe[1]
-        binding.radio3.text = randomListe[2]
-        binding.radio4.text = randomListe[3]
+
+        binding.radio1.text = fastSvarListe.get(indexPos).svar1
+        binding.radio2.text = fastSvarListe.get(indexPos).svar2
+        binding.radio3.text = fastSvarListe.get(indexPos).svar3
+        binding.radio4.text = fastSvarListe.get(indexPos).svar4
+        //Log.d("SVARET", huskKnappTab[indexPos].toString())
     }
 
     fun avsluttProve(view: View) {

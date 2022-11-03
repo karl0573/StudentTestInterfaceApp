@@ -7,6 +7,7 @@
     <string name="login">Login</string>
     <string name="passord">Passord</string>
     <string name="neste_knapp_txt">Neste ></string>
+    <string name="forrige_knapp_txt">Forrige</string>
     <string name="avslutt_knapp_txt">Avslutt</string>
     <string name="resultatTxt">Ditt resultat</string>
     <string name="scoreTxt">Din score: 7/10</string>
