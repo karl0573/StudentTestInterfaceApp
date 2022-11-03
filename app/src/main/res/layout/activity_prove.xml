@@ -30,6 +30,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtPoengsum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/scoreTxt"
@@ -53,10 +54,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/radiogruppeTekst"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
-                android:text="Oppgavetekst"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -64,29 +65,25 @@
                 android:id="@+id/radio1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:text="Svaralternativ 1" />
+                 />
 
             <RadioButton
                 android:id="@+id/radio2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:text="Svaralternativ 2" />
+                />
 
             <RadioButton
                 android:id="@+id/radio3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:text="Svaralternativ 3" />
+                 />
 
             <RadioButton
                 android:id="@+id/radio4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:text="Svaralternativ 4" />
+                 />
 
 
         </RadioGroup>
@@ -96,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="visResultat"
+            android:onClick="nesteSpørsmål"
             android:text="@string/neste_knapp_txt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +106,7 @@
             android:layout_width="118dp"
             android:layout_height="21dp"
             android:layout_marginTop="141dp"
-            android:text="Spørsmål 1/10"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -129,8 +126,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.888"
-            android:max="10"
-            android:progress="1"/>
+            android:progress="0"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
         <com.google.android.material.navigation.NavigationView

@@ -1,4 +1,4 @@
-package com.example.mobprosjekt
+package com.example.datahentingtest
 
 import org.junit.Test
 
