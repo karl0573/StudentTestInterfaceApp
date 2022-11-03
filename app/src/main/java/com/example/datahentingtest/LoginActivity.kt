@@ -20,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     lateinit var hamburgerIkon: ActionBarDrawerToggle
     lateinit var startIntent: Intent
+    var storrelse = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,10 @@ class LoginActivity : AppCompatActivity() {
             finish()
             true
         }
+
+
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -51,29 +56,31 @@ class LoginActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-        viewModel.getBruker("Magnus")
+        viewModel.getBruker("vebteo")
         viewModel.mutableBrukerResponse.observe(this) { response ->
-            if (response.isSuccessful) {
-                val bruker1 = Bruker(response.body()!!.records[0].usersPwd)
-                Toast.makeText(applicationContext, "Brukereren finnes JIPPI", Toast.LENGTH_SHORT).show();
-
-            } /*else {
-                Toast.makeText(applicationContext, "Brukernavn finnes ikke ;((((", Toast.LENGTH_SHORT).show();
-            } */
+            storrelse = response.body()!!.records.size
         }
 
-/**
+        if (storrelse > 0) {
+           // val bruker1 = Bruker(response.body()!!.records[0].usersPwd)
+            Toast.makeText(applicationContext, "Brukereren finnes JIPPI", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(applicationContext, "Brukernavn finnes ikke ;((((", Toast.LENGTH_SHORT).show();
+        }
+
+        /**
         if(binding.editTextTextPersonName.text.toString().length == 0) {
-            Toast.makeText(applicationContext, "Du må fylle ut brukernavn feltet :DDDD", Toast.LENGTH_SHORT).show();
+        Toast.makeText(applicationContext, "Du må fylle ut brukernavn feltet :DDDD", Toast.LENGTH_SHORT).show();
         }
         else if(binding.editTextTextPassword.text.toString().length == 0) {
-            Toast.makeText(applicationContext, "Du må fylle ut passord feltet :DDDD", Toast.LENGTH_SHORT).show();
+        Toast.makeText(applicationContext, "Du må fylle ut passord feltet :DDDD", Toast.LENGTH_SHORT).show();
         }
         else {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
         }
-        */
+         */
     }
+
 }

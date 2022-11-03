@@ -15,7 +15,6 @@ import com.example.datahentingtest.model.KORT_ID
 import com.example.datahentingtest.model.Kort
 import com.example.datahentingtest.model.Prove
 import com.example.datahentingtest.model.kortListe
-import com.example.datahentingtest.model.*
 import com.example.datahentingtest.repository.Repository
 import com.example.datahentingtest.viewModel.MainViewModel
 import com.example.datahentingtest.viewModel.MainViewModelFactory
@@ -27,19 +26,18 @@ class ProveActivity : AppCompatActivity() {
     lateinit var startIntent: Intent
     lateinit var riktigSvaret: String
     lateinit var prøveListe: MutableList<Prove>
+    lateinit var randomSvarListe: MutableList<Svar>
     var spørsmålNr = 1
-    var antallSporsmal = 0
-    var poengsum = 0
-    var indexPos = 0;
-    lateinit var fastSvarListe: MutableList<Svar>
-    lateinit var huskKnappTab : MutableList<String>
+    var antallSporsmal = 0; var poengsum = 0; var indexPos = 0
+    var verdi = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prove)
+
         val kortID = intent.getStringExtra(KORT_ID)
         val kort = kortFraID(kortID!!)
-        var proveNavnet = kort!!.proveNavn
+        val proveNavnet = kort!!.proveNavn
         hentProveData(proveNavnet)
 
         hamburgerIkon = ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
@@ -48,9 +46,9 @@ class ProveActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navView.setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.hjemItem -> startIntent = Intent(this, MainActivity::class.java)
+                R.id.hjemItem   -> startIntent = Intent(this, MainActivity::class.java)
                 R.id.profilItem -> startIntent = Intent(this, ProfilActivity::class.java)
-                R.id.loginItem -> startIntent = Intent(this, LoginActivity::class.java)
+                R.id.loginItem  -> startIntent = Intent(this, LoginActivity::class.java)
             }
             startActivity(startIntent)
             finish()
@@ -58,22 +56,29 @@ class ProveActivity : AppCompatActivity() {
         }
     }
 
-    fun getSvar(): MutableList<Svar> {
-        var listen = mutableListOf<Svar>()
+    private fun kortFraID(kortID: String): Kort? {
+        for(kort in kortListe)
+            if(kort.proveNavn == kortID)
+                return kort
+        return null
+    }
+
+    fun getAlleSvar(): MutableList<Svar> {
+        val returListe = mutableListOf<Svar>()
         var i = 0
         while(i < prøveListe.size) {
-            var svarListe = listOf(prøveListe.get(i).RiktigSvar, prøveListe.get(i).Svar2,  prøveListe.get(i).Svar3, prøveListe.get(i).Svar4)
-            var randomListe = svarListe.shuffled()
-            var svark = Svar(
+            val svarListe = listOf(prøveListe.get(i).RiktigSvar, prøveListe.get(i).Svar2,  prøveListe.get(i).Svar3, prøveListe.get(i).Svar4)
+            val randomListe = svarListe.shuffled()
+            val svar = Svar(
                 randomListe[0],
                 randomListe[1],
                 randomListe[2],
                 randomListe[3],
             )
-            listen.add(svark)
+            returListe.add(svar)
             i++
         }
-        return listen
+        return returListe
     }
 
     private fun hentProveData(proveNavn: String) {
@@ -99,7 +104,7 @@ class ProveActivity : AppCompatActivity() {
                 }
                 antallSporsmal = prøveListe.size
                 binding.progresjonBar.max = antallSporsmal
-                fastSvarListe = getSvar()
+                randomSvarListe = getAlleSvar()
                 oppdater()
             }
             else {
@@ -108,62 +113,61 @@ class ProveActivity : AppCompatActivity() {
         }
     }
 
-
-
-    private fun kortFraID(kortID: String): Kort? {
-        for(kort in kortListe) {
-            if(kort.proveNavn == kortID)
-                return kort
-        }
-        return null
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(hamburgerIkon.onOptionsItemSelected(item)) {
-            true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     fun nesteSpørsmål(view: View) {
         if(spørsmålNr >= antallSporsmal) {  // Sjekker om det fortsatt er flere spørsmål.Viser resultatskjerm hvis det er tomt
-            binding.txtPoengsum!!.text = "Poengsum: $poengsum/$antallSporsmal"
-            binding.contactgroup.visibility = View.GONE
-            binding.antSpm.visibility = View.GONE
-            binding.progresjonBar.visibility = View.GONE
-            binding.button2.visibility = View.GONE
-            binding.forrigeKnapp!!.visibility = View.GONE
-            binding.resultatSkjerm.visibility = View.VISIBLE
+            if(binding.contactgroup.checkedRadioButtonId == -1) {
+                Toast.makeText(applicationContext, "Du må velge ett svaralternativ", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                when (binding.contactgroup.checkedRadioButtonId) {
+                    R.id.radio1 ->
+                        if (binding.radio1.text == riktigSvaret)
+                            poengsum += 1
+                    R.id.radio2 ->
+                        if (binding.radio2.text == riktigSvaret)
+                            poengsum += 1
+                    R.id.radio3 ->
+                        if (binding.radio3.text == riktigSvaret)
+                            poengsum += 1
+                    R.id.radio4 ->
+                        if (binding.radio4.text == riktigSvaret)
+                            poengsum += 1
+                }
+                binding.contactgroup.visibility = View.GONE
+                binding.antSpm.visibility = View.GONE
+                binding.progresjonBar.visibility = View.GONE
+                binding.button2.visibility = View.GONE
+                binding.forrigeKnapp!!.visibility = View.GONE
+                binding.resultatSkjerm.visibility = View.VISIBLE
+                binding.txtPoengsum!!.text = "Poengsum: $poengsum/$antallSporsmal"
+            }
         }
+
         else {
             if(binding.contactgroup.checkedRadioButtonId == -1) {
-                Toast.makeText(applicationContext, "Du må velge ett svaralternativ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, "Du må velge ett svaralternativ", Toast.LENGTH_SHORT).show()
             }
             else {
                 when (binding.contactgroup.checkedRadioButtonId) {
                     R.id.radio1 -> {
-                        if (binding.radio1.text == riktigSvaret) {
+                        if (binding.radio1.text == riktigSvaret)
                             poengsum += 1
-                        }
-                        //huskKnappTab[indexPos] = "en"
+                        verdi = 1
                     }
                     R.id.radio2 -> {
-                        if (binding.radio2.text == riktigSvaret) {
+                        if (binding.radio2.text == riktigSvaret)
                             poengsum += 1
-                        }
-                       // huskKnappTab[indexPos] = "to"
+                        verdi = 2
                     }
                     R.id.radio3 -> {
-                        if (binding.radio3.text == riktigSvaret) {
+                        if (binding.radio3.text == riktigSvaret)
                             poengsum += 1
-                        }
-                        // huskKnappTab[indexPos] = "tre"
+                        verdi = 3
                     }
                     R.id.radio4 -> {
-                        if (binding.radio4.text == riktigSvaret) {
+                        if (binding.radio4.text == riktigSvaret)
                             poengsum += 1
-                        }
-                        // huskKnappTab[indexPos] = "fire"
+                        verdi = 4
                     }
                 }
                 binding.contactgroup.clearCheck()
@@ -179,49 +183,42 @@ class ProveActivity : AppCompatActivity() {
     }
 
     fun forrigeSpørsmål(view: View) {
-       //binding.contactgroup.clearCheck()
-        spørsmålNr -= 1
-        indexPos -= 1
-        poengsum -=1
+        spørsmålNr  -= 1
+        indexPos    -= 1
+        poengsum    -= 1
         binding.progresjonBar.setProgress(spørsmålNr-1)
-       // binding.radio1.isChecked = true
-      //  Log.d("Response", huskKnappTab[indexPos].toString())
-/**
-        if (huskKnappTab[indexPos].equals("en")) {
-            binding.contactgroup.check(R.id.radio1);
-        }
-        else if(huskKnappTab[indexPos].equals("to")) {
-            binding.contactgroup.check(R.id.radio2);
-        }
-        else if(huskKnappTab[indexPos].equals("tre")) {
-            binding.contactgroup.check(R.id.radio3);
-        }
-        else if(huskKnappTab[indexPos].equals("fire")) {
-            binding.contactgroup.check(R.id.radio4);
-        }
-*/
         if(spørsmålNr == 1) {
             binding.forrigeKnapp!!.visibility = View.GONE
             poengsum = 0
         }
         oppdater()
+        when(verdi) {
+            1 -> binding.contactgroup.check(R.id.radio1)
+            2 -> binding.contactgroup.check(R.id.radio2)
+            3 -> binding.contactgroup.check(R.id.radio3)
+            4 -> binding.contactgroup.check(R.id.radio4)
+        }
     }
 
     fun oppdater() {
-        binding.antSpm.text = "Spørsmål: $spørsmålNr/$antallSporsmal"
         riktigSvaret = prøveListe.get(indexPos).RiktigSvar
         binding.radiogruppeTekst!!.text = prøveListe.get(indexPos).OppgaveTekst
-
-        binding.radio1.text = fastSvarListe.get(indexPos).svar1
-        binding.radio2.text = fastSvarListe.get(indexPos).svar2
-        binding.radio3.text = fastSvarListe.get(indexPos).svar3
-        binding.radio4.text = fastSvarListe.get(indexPos).svar4
-        //Log.d("SVARET", huskKnappTab[indexPos].toString())
+        binding.radio1.text = randomSvarListe.get(indexPos).svar1
+        binding.radio2.text = randomSvarListe.get(indexPos).svar2
+        binding.radio3.text = randomSvarListe.get(indexPos).svar3
+        binding.radio4.text = randomSvarListe.get(indexPos).svar4
+        binding.antSpm.text = "Spørsmål: $spørsmålNr/$antallSporsmal"
     }
 
     fun avsluttProve(view: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(hamburgerIkon.onOptionsItemSelected(item))
+            true
+        return super.onOptionsItemSelected(item)
     }
 }

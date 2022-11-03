@@ -19,6 +19,6 @@ interface SQLAPI {
     @GET("{proveNavn}")
     suspend fun getProven(@Path("proveNavn") proveNavn: String): Response<RecordsTest>
 
-    @GET("users?filter=usersUid,eq,{brukerNavn}&include=usersPwd")
-    suspend fun getBruker(@Path("brukerNavn") brukerNavn: String): Response<RecordsBruker>
+    @GET("users?filter=usersUid,eq,{usersUid}&include=usersPwd")
+    suspend fun getBruker(@Path("usersUid") usersUid: String): Response<RecordsBruker>
 }

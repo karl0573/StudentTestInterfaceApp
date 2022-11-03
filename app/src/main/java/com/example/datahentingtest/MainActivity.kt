@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity(), KortClickListener {
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun hentKortData(){
         if(kortListe.size > 0) {
         }
