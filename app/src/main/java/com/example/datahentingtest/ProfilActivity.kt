@@ -8,7 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
-import com.example.datahentingtest.databinding.ActivityProfilBinding
+import com.example.mobprosjekt.R
+import com.example.mobprosjekt.databinding.ActivityProfilBinding
 
 class ProfilActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfilBinding

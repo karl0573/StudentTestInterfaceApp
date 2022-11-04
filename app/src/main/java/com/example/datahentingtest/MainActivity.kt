@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.datahentingtest.repository.Repository
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.datahentingtest.databinding.ActivityMainBinding
 import com.example.datahentingtest.model.kortListe
 import com.example.datahentingtest.model.Kort
 import com.example.datahentingtest.kort.KortAdapter
@@ -19,6 +18,8 @@ import com.example.datahentingtest.kort.KortClickListener
 import com.example.datahentingtest.model.KORT_ID
 import com.example.datahentingtest.viewModel.MainViewModel
 import com.example.datahentingtest.viewModel.MainViewModelFactory
+import com.example.mobprosjekt.R
+import com.example.mobprosjekt.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), KortClickListener {
     private lateinit var viewModel: MainViewModel

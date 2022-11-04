@@ -1,11 +1,11 @@
 package com.example.datahentingtest.kort
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.datahentingtest.R
-import com.example.datahentingtest.databinding.ProveCardLayoutBinding
 import com.example.datahentingtest.model.Kort
+import com.example.mobprosjekt.R
+import com.example.mobprosjekt.databinding.ProveCardLayoutBinding
 
- class KortViewHolder(
+class KortViewHolder(
     private val cardCellBinding: ProveCardLayoutBinding,
     private val clickListener: KortClickListener
  ) : RecyclerView.ViewHolder(cardCellBinding.root) {
