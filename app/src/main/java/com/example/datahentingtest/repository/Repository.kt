@@ -17,7 +17,7 @@ class Repository {
         return RetrofitInstance.api.getProven(verdier)
     }
     
-    suspend fun getBruker(verdi: String): Response<RecordsBruker> {
-        return RetrofitInstance.api.getBruker(verdi)
+    suspend fun getBruker(/*Uid: String*/): Response<RecordsBruker> {
+        return RetrofitInstance.api.getBruker(/*Uid*/)
     }
 }

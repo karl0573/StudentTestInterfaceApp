@@ -22,14 +22,14 @@ import com.example.datahentingtest.viewModel.MainViewModelFactory
 class ProveActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     lateinit var binding: ActivityProveBinding
-    lateinit var hamburgerIkon: ActionBarDrawerToggle
-    lateinit var startIntent: Intent
-    lateinit var riktigSvaret: String
+    private lateinit var hamburgerIkon: ActionBarDrawerToggle
+    private lateinit var startIntent: Intent
+    private lateinit var riktigSvaret: String
     lateinit var prøveListe: MutableList<Prove>
-    lateinit var randomSvarListe: MutableList<Svar>
+    private lateinit var randomSvarListe: MutableList<Svar>
     var spørsmålNr = 1
-    var antallSporsmal = 0; var poengsum = 0; var indexPos = 0
-    var verdi = 0
+    private var antallSporsmal = 0; var poengsum = 0; var indexPos = 0
+    private var verdi = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

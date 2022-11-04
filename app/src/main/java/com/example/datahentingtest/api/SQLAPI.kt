@@ -3,6 +3,7 @@ import com.example.datahentingtest.model.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface SQLAPI {
     @GET("BrukerQuiz/GameOfThrones")
@@ -19,6 +20,11 @@ interface SQLAPI {
     @GET("{proveNavn}")
     suspend fun getProven(@Path("proveNavn") proveNavn: String): Response<RecordsTest>
 
-    @GET("users?filter=usersUid,eq,{usersUid}&include=usersPwd")
-    suspend fun getBruker(@Path("usersUid") usersUid: String): Response<RecordsBruker>
+//    @GET("users")
+//    suspend fun getBruker(@Query("filter=usersUid,eq,")eq : String): Response<RecordsBruker>
+
+
+    @GET("users?filter=usersUid,eq,tester")
+    suspend fun getBruker(@Query("filter") tester: String): Response<RecordsBruker>
 }
+

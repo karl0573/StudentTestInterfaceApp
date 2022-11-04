@@ -36,9 +36,9 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun getBruker(verdi: String) {
+    fun getBruker(/*verdi: String*/) {
         viewModelScope.launch {
-            val responseBruker : Response<RecordsBruker> = repository.getBruker(verdi)
+            val responseBruker : Response<RecordsBruker> = repository.getBruker(/*verdi*/)
             mutableBrukerResponse.value = responseBruker
         }
     }

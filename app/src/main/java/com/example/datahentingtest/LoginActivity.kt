@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.datahentingtest.databinding.ActivityLoginBinding
+import com.example.datahentingtest.model.Bruker
 import com.example.datahentingtest.repository.Repository
 import com.example.datahentingtest.viewModel.MainViewModel
 import com.example.datahentingtest.viewModel.MainViewModelFactory
@@ -17,9 +18,9 @@ import com.example.datahentingtest.viewModel.MainViewModelFactory
 class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     lateinit var binding: ActivityLoginBinding
-    lateinit var hamburgerIkon: ActionBarDrawerToggle
-    lateinit var startIntent: Intent
-    var storrelse = 0
+    private lateinit var hamburgerIkon: ActionBarDrawerToggle
+    private lateinit var startIntent: Intent
+    private var storrelse = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,17 +56,31 @@ class LoginActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-        viewModel.getBruker("vebteo")
+        viewModel.getBruker()
         viewModel.mutableBrukerResponse.observe(this) { response ->
             storrelse = response.body()!!.records.size
-        }
+            if (storrelse > 0) {
 
-        if (storrelse > 0) {
-           // val bruker1 = Bruker(response.body()!!.records[0].usersPwd)
             Toast.makeText(applicationContext, "Brukereren finnes JIPPI", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(applicationContext, "Brukernavn finnes ikke ;((((", Toast.LENGTH_SHORT).show();
         }
+
+            val bruker1 = Bruker(
+                response.body()!!.records[0].usersId,
+                response.body()!!.records[0].usersName,
+                response.body()!!.records[0].usersEmail,
+                response.body()!!.records[0].usersUid,
+                response.body()!!.records[0].usersPwd
+            )
+
+
+            binding.editTextTextPersonName.setText(bruker1.usersName)
+        }
+
+       // binding.editTextTextPersonName.setText(storrelse.toString())
+
+
 
         /**
         if(binding.editTextTextPersonName.text.toString().length == 0) {
