@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.example.datahentingtest.databinding.ActivityProveBinding
 import com.example.datahentingtest.model.KORT_ID
 import com.example.datahentingtest.model.Kort
 import com.example.datahentingtest.model.Prove
@@ -17,8 +18,6 @@ import com.example.datahentingtest.model.kortListe
 import com.example.datahentingtest.repository.Repository
 import com.example.datahentingtest.viewModel.MainViewModel
 import com.example.datahentingtest.viewModel.MainViewModelFactory
-import com.example.mobprosjekt.R
-import com.example.mobprosjekt.databinding.ActivityProveBinding
 
 class ProveActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel

@@ -3,7 +3,6 @@ package com.example.datahentingtest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.datahentingtest.viewModel.MainViewModel
-import com.example.mobprosjekt.R
 
 class TestActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel

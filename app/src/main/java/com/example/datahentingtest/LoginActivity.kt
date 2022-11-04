@@ -9,11 +9,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.datahentingtest.databinding.ActivityLoginBinding
 import com.example.datahentingtest.repository.Repository
 import com.example.datahentingtest.viewModel.MainViewModel
 import com.example.datahentingtest.viewModel.MainViewModelFactory
-import com.example.mobprosjekt.R
-import com.example.mobprosjekt.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
