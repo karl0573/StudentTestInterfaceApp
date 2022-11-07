@@ -56,47 +56,46 @@ class LoginActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-       // viewModel.getBruker(/*"tester"*/)
-       viewModel.getBruker("usersUid", "vebteo")
+        // viewModel.getBruker(/*"tester"*/)
+        var brukerId = binding.editTextTextPersonName.text
+        // var brukerId = "vebteo"
+        val filter = "usersUid,eq,$brukerId";
+        viewModel.getBruker(filter)
         viewModel.mutableBrukerResponse.observe(this) { response ->
             storrelse = response.body()!!.records.size
-            if (storrelse > 0) {
 
-            Toast.makeText(applicationContext, "Brukereren finnes JIPPI", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(applicationContext, "Brukernavn finnes ikke ;((((", Toast.LENGTH_SHORT).show();
-        }
+            if(binding.editTextTextPersonName.text.toString().isEmpty()) {
+                Toast.makeText(applicationContext, "Du må fylle ut brukernavn feltet :DDDD", Toast.LENGTH_SHORT).show();
+            }
+            else if(binding.editTextTextPassword.text.toString().isEmpty()) {
+                Toast.makeText(applicationContext, "Du må fylle ut passord feltet :DDDD", Toast.LENGTH_SHORT).show();
+            }
+            else if(storrelse <= 0) {
+                Toast.makeText(applicationContext, "Brukernavn finnes ikke ;((((", Toast.LENGTH_SHORT).show();
+            }
+            else if (storrelse > 0) {
+                Toast.makeText(applicationContext, "Brukereren finnes JIPPI", Toast.LENGTH_SHORT).show();
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+       
 
-         val bruker1 = Bruker(
-                response.body()!!.records[0].usersId,
-                response.body()!!.records[0].usersName,
-                response.body()!!.records[0].usersEmail,
-                response.body()!!.records[0].usersUid,
-                response.body()!!.records[0].usersPwd
-            )
+            val bruker1 = Bruker(
+                    response.body()!!.records[0].usersId,
+                    response.body()!!.records[0].usersName,
+                    response.body()!!.records[0].usersEmail,
+                    response.body()!!.records[0].usersUid,
+                    response.body()!!.records[0].usersPwd
+                )
 
-
-
-            binding.editTextTextPersonName.setText(bruker1.usersName)
+            //  binding.editTextTextPersonName.setText(bruker1.usersName)
+               // binding.editTextTextPassword.setText(bruker1.usersName)
         }
 
        // binding.editTextTextPersonName.setText(storrelse.toString())
-
-
-
-        /**
-        if(binding.editTextTextPersonName.text.toString().length == 0) {
-        Toast.makeText(applicationContext, "Du må fylle ut brukernavn feltet :DDDD", Toast.LENGTH_SHORT).show();
-        }
-        else if(binding.editTextTextPassword.text.toString().length == 0) {
-        Toast.makeText(applicationContext, "Du må fylle ut passord feltet :DDDD", Toast.LENGTH_SHORT).show();
-        }
-        else {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-        }
-         */
+       
+       
     }
 
 }

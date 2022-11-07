@@ -93,7 +93,7 @@
                 app:menu="@menu/meny_liste"
                 android:layout_gravity="start"
                 android:fitsSystemWindows="true"/>
-    
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

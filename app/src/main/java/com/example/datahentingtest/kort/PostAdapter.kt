@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.datahentingtest.databinding.ProfilCardLayoutBinding
 import com.example.datahentingtest.model.Post
 
-class PostAdapter(private val prove: List<Post>,
-                  private val clickListener: PostClickListener
+class PostAdapter(private val prove: List<Post>
+                  
 ) : RecyclerView.Adapter<PostViewHolder>()
 {
 
@@ -16,7 +16,7 @@ class PostAdapter(private val prove: List<Post>,
 
         val fra = LayoutInflater.from(parent.context)
         val binding = ProfilCardLayoutBinding.inflate(fra, parent, false)
-        return PostViewHolder(binding, clickListener)
+        return PostViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {

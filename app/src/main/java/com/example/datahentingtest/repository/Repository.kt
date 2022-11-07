@@ -5,8 +5,8 @@ import com.example.datahentingtest.model.*
 import retrofit2.Response
 
 class Repository {
-    suspend fun getPost(): Response<RecordsPost> {
-        return RetrofitInstance.api.getPost()
+    suspend fun getPost(verdi: String): Response<RecordsPost> {
+        return RetrofitInstance.api.getPost(verdi)
     }
 
     suspend fun getProve(verdi: Int, verdi2: String): Response<Prove> {
@@ -26,8 +26,12 @@ class Repository {
         return RetrofitInstance.api.getBruker(Uid)
     }
     */
-    suspend fun getBruker(Uid: String, ting: String): Response<RecordsBruker> {
-        return RetrofitInstance.api.getBruker(Uid, ting)
+    suspend fun getBruker(Uid: String): Response<RecordsBruker> {
+        return RetrofitInstance.api.getBruker(Uid)
+    }
+
+    suspend fun getBrukernavn(usersId: Int): Response<RecordsBrukernavn> {
+        return RetrofitInstance.api.getBrukernavn(usersId)
     }
 
 

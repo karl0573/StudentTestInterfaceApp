@@ -14,10 +14,18 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     val mutableProvenResponse: MutableLiveData<Response<RecordsTest>> = MutableLiveData()
     val mutableBrukerResponse: MutableLiveData<Response<RecordsBruker>> = MutableLiveData()
     val mutablePostResponse: MutableLiveData<Response<RecordsPost>> = MutableLiveData()
+    val mutableBrukernavnResponse: MutableLiveData<Response<RecordsBrukernavn>> = MutableLiveData()
 
-    fun getPost() {
+    fun getBrukernavn(verdi: Int) {
         viewModelScope.launch {
-            val responsePost : Response<RecordsPost> = repository.getPost()
+            val responseBrukernavn : Response<RecordsBrukernavn> = repository.getBrukernavn(verdi)
+            mutableBrukernavnResponse.value = responseBrukernavn
+        }
+    }
+
+    fun getPost(verdi: String) {
+        viewModelScope.launch {
+            val responsePost : Response<RecordsPost> = repository.getPost(verdi)
             mutablePostResponse.value = responsePost
         }
     }
@@ -52,9 +60,9 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         }
     } */
 
-    fun getBruker(verdi: String, nyverd: String) {
+    fun getBruker(verdi: String) {
         viewModelScope.launch {
-            val responseBruker : Response<RecordsBruker> = repository.getBruker(verdi, nyverd)
+            val responseBruker : Response<RecordsBruker> = repository.getBruker(verdi)
             mutableBrukerResponse.value = responseBruker
         }
     }

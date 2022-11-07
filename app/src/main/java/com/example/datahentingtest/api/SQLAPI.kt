@@ -6,8 +6,11 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface SQLAPI {
-    @GET("BrukerQuiz?filter=brukerId,eq,3")
-    suspend fun getPost(): Response<RecordsPost>
+    @GET("BrukerQuiz")
+    suspend fun getPost(@Query("filter")filter: String): Response<RecordsPost>
+
+    @GET("users/{usersId}")
+    suspend fun getBrukernavn(@Path("usersId") usersId: Int): Response<RecordsBrukernavn>
 
     @GET("{proveNavn}/{SporsmalNr}")
     suspend fun getProve(@Path("SporsmalNr") SporsmalNr: Int,
@@ -22,9 +25,7 @@ interface SQLAPI {
 
     @GET("users")
     suspend fun getBruker(
-        @Query("filter")usersUid: String,
-        @Query("eq") brukernavn : String
-    ): Response<RecordsBruker>
+        @Query("filter")filter: String): Response<RecordsBruker>
 
     //@GET("users?filter=usersUid,eq,tester")
     //suspend fun getBruker(@Query("filter") tester: String): Response<RecordsBruker>
