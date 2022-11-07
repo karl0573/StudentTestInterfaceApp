@@ -56,7 +56,8 @@ class LoginActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-        viewModel.getBruker()
+       // viewModel.getBruker(/*"tester"*/)
+       viewModel.getBruker("usersUid", "vebteo")
         viewModel.mutableBrukerResponse.observe(this) { response ->
             storrelse = response.body()!!.records.size
             if (storrelse > 0) {
@@ -66,13 +67,14 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Brukernavn finnes ikke ;((((", Toast.LENGTH_SHORT).show();
         }
 
-            val bruker1 = Bruker(
+         val bruker1 = Bruker(
                 response.body()!!.records[0].usersId,
                 response.body()!!.records[0].usersName,
                 response.body()!!.records[0].usersEmail,
                 response.body()!!.records[0].usersUid,
                 response.body()!!.records[0].usersPwd
             )
+
 
 
             binding.editTextTextPersonName.setText(bruker1.usersName)
