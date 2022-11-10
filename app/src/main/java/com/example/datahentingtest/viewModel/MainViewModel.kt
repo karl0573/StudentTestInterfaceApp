@@ -14,11 +14,13 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     val mutableProvenResponse: MutableLiveData<Response<RecordsTest>> = MutableLiveData()
     val mutableBrukerResponse: MutableLiveData<Response<RecordsBruker>> = MutableLiveData()
     val mutablePostResponse: MutableLiveData<Response<RecordsPost>> = MutableLiveData()
-    val mutableBrukernavnResponse: MutableLiveData<Response<RecordsBrukernavn>> = MutableLiveData()
+    val mutableBrukernavnResponse: MutableLiveData<Response<Brukernavn>> = MutableLiveData()
+    val mutableEndreBrukerResponse: MutableLiveData<Response<Brukernavn>> = MutableLiveData()
+    val mutableSlettProveResponse: MutableLiveData<Response<Kort>> = MutableLiveData()
 
     fun getBrukernavn(verdi: Int) {
         viewModelScope.launch {
-            val responseBrukernavn : Response<RecordsBrukernavn> = repository.getBrukernavn(verdi)
+            val responseBrukernavn : Response<Brukernavn> = repository.getBrukernavn(verdi)
             mutableBrukernavnResponse.value = responseBrukernavn
         }
     }
@@ -64,6 +66,20 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         viewModelScope.launch {
             val responseBruker : Response<RecordsBruker> = repository.getBruker(verdi)
             mutableBrukerResponse.value = responseBruker
+        }
+    }
+
+    fun endreBrukernavn(verdi: String, verdi2: String) {
+        viewModelScope.launch {
+            val responseEndreBrukernavn : Response<Brukernavn> = repository.endreBrukernavn(verdi, verdi2)
+            mutableEndreBrukerResponse.value = responseEndreBrukernavn
+        }
+    }
+
+    fun slettProve(proveNavn: String) {
+        viewModelScope.launch {
+            val responseProvenSlett : Response<Kort> = repository.slettProve(proveNavn)
+            mutableSlettProveResponse.value = responseProvenSlett
         }
     }
 }

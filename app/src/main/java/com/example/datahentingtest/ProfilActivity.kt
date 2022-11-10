@@ -1,10 +1,13 @@
 package com.example.datahentingtest
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +25,8 @@ class ProfilActivity : AppCompatActivity() {
     private lateinit var startIntent: Intent
     private lateinit var viewModel: MainViewModel
     private lateinit var viewModel2: MainViewModel
+    lateinit var currentNavn: String
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,24 +38,9 @@ class ProfilActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         hentProfilProver()
 
-/*
-        val repository2 = Repository()
-        val viewModelFactory2 = MainViewModelFactory(repository2)
-        viewModel2 = ViewModelProvider(this, viewModelFactory2)[MainViewModel::class.java]
-        viewModel2.getBrukernavn(3)
-        viewModel2.mutableBrukernavnResponse.observe(this) { response ->
-            if (response.isSuccessful) {
-            val bruker1 = Bruker(
-                            response.body()!!.records[0].usersId,
-                            response.body()!!.records[0].usersName,
-                            response.body()!!.records[0].usersEmail,
-                            response.body()!!.records[0].usersUid,
-                            response.body()!!.records[0].usersPwd
-                        )
-                binding.textView2.text = bruker1.usersUid
-            }
-        }
-        */
+
+
+
 
 
 
@@ -71,17 +61,33 @@ class ProfilActivity : AppCompatActivity() {
             true
         }
 
+        val repository2 = Repository()
+        val viewModelFactory2 = MainViewModelFactory(repository2)
+        viewModel2 = ViewModelProvider(this, viewModelFactory2)[MainViewModel::class.java]
+        viewModel2.getBrukernavn(3)
+        viewModel2.mutableBrukernavnResponse.observe(this) { response ->
+            if (response.isSuccessful) {
+                 binding.textView2.text = response.body()!!.usersUid
+                binding.editText?.setText(response.body()!!.usersUid)
+                currentNavn = response.body()!!.usersUid
+
+            }
+        }
+
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun hentProfilProver() {
-        if(kortListe.size > 0) {
+        
+        if(posterListe.size > 0) {
         }
         else {
+
             val repository = Repository()
                 val viewModelFactory = MainViewModelFactory(repository)
                 viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-                var brukerId = 1
+                var brukerId = 7
                 val filter = "brukerId,eq,$brukerId";
                 viewModel.getPost(filter)
 
@@ -99,9 +105,7 @@ class ProfilActivity : AppCompatActivity() {
                         }
                     }
                 }
-        }
-
-
+        } 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -112,9 +116,60 @@ class ProfilActivity : AppCompatActivity() {
     }
 
     fun slettProve(view: View) {
+        //posterListe.remove(posterListe.get(0))
+
+         val repository2 = Repository()
+        val viewModelFactory2 = MainViewModelFactory(repository2)
+        viewModel2 = ViewModelProvider(this, viewModelFactory2)[MainViewModel::class.java]
+        viewModel2.slettProve("slett1")
+        viewModel2.mutableSlettProveResponse.observe(this) { response ->
+            if (response.isSuccessful) {
+                 Toast.makeText(applicationContext, "Tror den ble slettet?", Toast.LENGTH_SHORT).show();
+            }
+        }
 
     }
 
+    fun endreBrukernavn(view: View) {
+        binding.btBekreft?.visibility = View.VISIBLE
+        binding.btAvbryt?.visibility = View.VISIBLE
+        binding.btEndre?.visibility = View.GONE
+         binding.textView2.visibility = View.GONE
+        binding.editText!!.visibility = View.VISIBLE
+        /*
+        binding.textView2.visibility = View.GONE
+        binding.editText!!.visibility = View.VISIBLE
+        if(currentNavn != binding.editText!!.text.toString()) {
+            // Kode for oppdater brukernavn
+            // JSON-kall?
+            // sett nytt navn som text-verdi i textfield
+            // hide editText
+            // vis textfield
+        } else if(binding.editText!!.text.toString().isEmpty()) {
+            // Brukernavn finnes allerede eller brukernavn er 0 bokstaver
+            Toast.makeText(applicationContext, "Brukernavnet kan ikke være 0 lengde", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(applicationContext, "Brukernavnet er allerede i bruk!", Toast.LENGTH_SHORT).show();
+        }
+        */
+    }
 
+    fun avbrytKnapp(view: View) {
+         binding.btBekreft?.visibility = View.GONE
+        binding.btAvbryt?.visibility = View.GONE
+        binding.btEndre?.visibility = View.VISIBLE
+         binding.textView2.visibility = View.VISIBLE
+        binding.editText!!.visibility = View.GONE
 
+    }
+
+    fun bekreftKnapp(view: View) {
+          binding.btBekreft?.visibility = View.GONE
+        binding.btAvbryt?.visibility = View.GONE
+        binding.btEndre?.visibility = View.VISIBLE
+         binding.textView2.visibility = View.VISIBLE
+        binding.editText!!.visibility = View.GONE
+
+    }
+    
 }

@@ -30,8 +30,16 @@ class Repository {
         return RetrofitInstance.api.getBruker(Uid)
     }
 
-    suspend fun getBrukernavn(usersId: Int): Response<RecordsBrukernavn> {
+    suspend fun getBrukernavn(usersId: Int): Response<Brukernavn> {
         return RetrofitInstance.api.getBrukernavn(usersId)
+    }
+
+    suspend fun slettProve(proveNavn: String): Response<Kort> {
+        return RetrofitInstance.api.slettProve(proveNavn)
+    }    
+    
+    suspend fun endreBrukernavn(usersUid: String, users: String): Response<Brukernavn> {
+        return RetrofitInstance.api.endreBrukernavn(usersUid, users)
     }
 
 
