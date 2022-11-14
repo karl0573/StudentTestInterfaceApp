@@ -1,4 +1,4 @@
-package com.example.datahentingtest.model
+package com.example.datahentingtest.dataklasser
 
 var posterListe = mutableListOf<Post>()
 

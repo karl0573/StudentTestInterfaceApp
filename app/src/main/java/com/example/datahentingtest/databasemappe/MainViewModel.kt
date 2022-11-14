@@ -1,26 +1,25 @@
-package com.example.datahentingtest.viewModel
+package com.example.datahentingtest.databasemappe
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.datahentingtest.model.*
-import com.example.datahentingtest.repository.Repository
+import com.example.datahentingtest.dataklasser.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository): ViewModel() {
-    private val mutableProveResponse: MutableLiveData<Response<Prove>> = MutableLiveData()
+    val mutableProveResponse: MutableLiveData<Response<Prove>> = MutableLiveData()
     val mutableAlleProverResponse: MutableLiveData<Response<RecordsKort>> = MutableLiveData()
     val mutableProvenResponse: MutableLiveData<Response<RecordsTest>> = MutableLiveData()
     val mutableBrukerResponse: MutableLiveData<Response<RecordsBruker>> = MutableLiveData()
     val mutablePostResponse: MutableLiveData<Response<RecordsPost>> = MutableLiveData()
-    val mutableBrukernavnResponse: MutableLiveData<Response<Brukernavn>> = MutableLiveData()
-    val mutableEndreBrukerResponse: MutableLiveData<Response<Brukernavn>> = MutableLiveData()
-    val mutableSlettProveResponse: MutableLiveData<Response<Kort>> = MutableLiveData()
+    val mutableBrukernavnResponse: MutableLiveData<Response<Bruker>> = MutableLiveData()
+    val mutableEndreBrukerResponse: MutableLiveData<Response<Bruker>> = MutableLiveData()
+    val mutableSlettProveResponse: MutableLiveData<Response<Post>> = MutableLiveData()
 
     fun getBrukernavn(verdi: Int) {
         viewModelScope.launch {
-            val responseBrukernavn : Response<Brukernavn> = repository.getBrukernavn(verdi)
+            val responseBrukernavn : Response<Bruker> = repository.getBrukernavn(verdi)
             mutableBrukernavnResponse.value = responseBrukernavn
         }
     }
@@ -69,16 +68,16 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun endreBrukernavn(verdi: String, verdi2: String) {
+    fun endreBrukernavn(verdi: Int, brukers: Bruker) {
         viewModelScope.launch {
-            val responseEndreBrukernavn : Response<Brukernavn> = repository.endreBrukernavn(verdi, verdi2)
+            val responseEndreBrukernavn : Response<Bruker> = repository.endreBrukernavn(verdi, brukers)
             mutableEndreBrukerResponse.value = responseEndreBrukernavn
         }
     }
 
     fun slettProve(proveNavn: String) {
         viewModelScope.launch {
-            val responseProvenSlett : Response<Kort> = repository.slettProve(proveNavn)
+            val responseProvenSlett : Response<Post> = repository.slettProve(proveNavn)
             mutableSlettProveResponse.value = responseProvenSlett
         }
     }

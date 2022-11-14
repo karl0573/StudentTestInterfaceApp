@@ -68,58 +68,64 @@
 
                 <RadioButton
                     android:id="@+id/radio1"
+                    android:background="@drawable/border"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
 
                 <RadioButton
                     android:id="@+id/radio2"
+                    android:background="@drawable/border"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
 
                 <RadioButton
                     android:id="@+id/radio3"
+                    android:background="@drawable/border"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
 
                 <RadioButton
                     android:id="@+id/radio4"
+                    android:background="@drawable/border"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
 
             </RadioGroup>
 
-            <Button
-                android:id="@+id/forrigeKnapp"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:onClick="forrigeSpørsmål"
-                android:text="@string/forrige_knapp_txt"
-                android:visibility="gone"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.254"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.748" />
+                app:layout_constraintVertical_bias="0.79">
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:onClick="nesteSpørsmål"
-                android:text="@string/neste_knapp_txt"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.743"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.748" />
+                <Button
+                    android:id="@+id/forrigeKnapp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="forrigeSpørsmål"
+                    android:text="@string/forrige_knapp_txt"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="nesteSpørsmål"
+                    android:text="@string/neste_knapp_txt"
+                    />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/antSpm"

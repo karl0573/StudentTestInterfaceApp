@@ -1,4 +1,4 @@
-package com.example.datahentingtest
+package com.example.datahentingtest.dataklasser
 
 data class Svar (
     var svar1: String,

@@ -1,4 +1,4 @@
-package com.example.datahentingtest.util
+package com.example.datahentingtest.databasemappe
 
 class Constants {
     companion object{

@@ -1,7 +1,6 @@
-package com.example.datahentingtest.repository
+package com.example.datahentingtest.databasemappe
 
-import com.example.datahentingtest.api.RetrofitInstance
-import com.example.datahentingtest.model.*
+import com.example.datahentingtest.dataklasser.*
 import retrofit2.Response
 
 class Repository {
@@ -30,16 +29,16 @@ class Repository {
         return RetrofitInstance.api.getBruker(Uid)
     }
 
-    suspend fun getBrukernavn(usersId: Int): Response<Brukernavn> {
+    suspend fun getBrukernavn(usersId: Int): Response<Bruker> {
         return RetrofitInstance.api.getBrukernavn(usersId)
     }
 
-    suspend fun slettProve(proveNavn: String): Response<Kort> {
+    suspend fun slettProve(proveNavn: String): Response<Post> {
         return RetrofitInstance.api.slettProve(proveNavn)
     }    
     
-    suspend fun endreBrukernavn(usersUid: String, users: String): Response<Brukernavn> {
-        return RetrofitInstance.api.endreBrukernavn(usersUid, users)
+    suspend fun endreBrukernavn(usersUid: Int, brukers: Bruker): Response<Bruker> {
+        return RetrofitInstance.api.endreBrukernavn(usersUid, brukers)
     }
 
 

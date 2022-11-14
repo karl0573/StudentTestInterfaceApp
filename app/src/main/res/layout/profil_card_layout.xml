@@ -53,10 +53,10 @@
             android:layout_gravity="bottom|center_horizontal"
             android:text="KarlOscar"
             android:textSize="15sp"
-
             />
 
         <Button
+            android:id="@+id/btSlett"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

@@ -1,6 +1,7 @@
-package com.example.datahentingtest.model
+package com.example.datahentingtest.dataklasser
 
-data class Brukernavn(
+
+data class Bruker(
     val usersId: Int,
     val usersName: String,
     val usersEmail: String,

@@ -1,5 +1,5 @@
-package com.example.datahentingtest.api
-import com.example.datahentingtest.model.*
+package com.example.datahentingtest.databasemappe
+import com.example.datahentingtest.dataklasser.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -13,7 +13,7 @@ interface SQLAPI {
     suspend fun getPost(@Query("filter")filter: String): Response<RecordsPost>
 
     @GET("users/{usersId}")
-    suspend fun getBrukernavn(@Path("usersId") usersId: Int): Response<Brukernavn>
+    suspend fun getBrukernavn(@Path("usersId") usersId: Int): Response<Bruker>
 
     @GET("{proveNavn}/{SporsmalNr}")
     suspend fun getProve(@Path("SporsmalNr") SporsmalNr: Int,
@@ -31,11 +31,11 @@ interface SQLAPI {
         @Query("filter")filter: String): Response<RecordsBruker>
 
     @DELETE("BrukerQuiz/{proveNavn}")
-    suspend fun slettProve(@Path("proveNavn") proveNavn: String): Response<Kort>
+    suspend fun slettProve(@Path("proveNavn") proveNavn: String): Response<Post>
 
-    @PUT("users/{usersUid}")
-    suspend fun endreBrukernavn(@Path("usersUid") usersUid: String,
-                                @Body users: String): Response<Brukernavn>
+    @PUT("users/{usersId}")
+    suspend fun endreBrukernavn(@Path("usersId") usersId: Int,
+                                @Body brukers: Bruker): Response<Bruker>
 
 
     //@GET("users?filter=usersUid,eq,tester")

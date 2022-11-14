@@ -1,26 +1,24 @@
 package com.example.datahentingtest
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.lifecycle.ViewModelProvider
-import com.example.datahentingtest.repository.Repository
+import com.example.datahentingtest.databasemappe.Repository
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.datahentingtest.databinding.ActivityMainBinding
-import com.example.datahentingtest.model.kortListe
-import com.example.datahentingtest.model.Kort
+import com.example.datahentingtest.dataklasser.kortListe
 import com.example.datahentingtest.kort.KortAdapter
-import com.example.datahentingtest.kort.KortClickListener
-import com.example.datahentingtest.model.KORT_ID
-import com.example.datahentingtest.viewModel.MainViewModel
-import com.example.datahentingtest.viewModel.MainViewModelFactory
+import com.example.datahentingtest.kort.ListeClickListener
+import com.example.datahentingtest.dataklasser.KORT_ID
+import com.example.datahentingtest.dataklasser.Kort
+import com.example.datahentingtest.databasemappe.MainViewModel
+import com.example.datahentingtest.databasemappe.MainViewModelFactory
 
-class MainActivity : AppCompatActivity(), KortClickListener {
+class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var hamburgerIkon: ActionBarDrawerToggle
@@ -33,7 +31,7 @@ class MainActivity : AppCompatActivity(), KortClickListener {
         binding.drawerLayout.addDrawerListener(hamburgerIkon)
         hamburgerIkon.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        hentKortData()
+        //hentKortData()
         val mainActivity = this
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(applicationContext,1)
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity(), KortClickListener {
         return super.onOptionsItemSelected(item)
     }
 
-    @SuppressLint("SuspiciousIndentation")
+/*
     private fun hentKortData(){
         if(kortListe.size > 0) {
         }
@@ -78,20 +76,22 @@ class MainActivity : AppCompatActivity(), KortClickListener {
                     //teksten.text = response.body()!!.records[0].proveNavn
                     var i = 0
                     while(i < response.body()!!.records.size) {
-                        val post1 = Kort(
-                            response.body()?.records!![i].brukerId!!,
-                            response.body()?.records!![i].proveNavn!!
+                        val kort = Kort(
+                            response.body()?.records!![i].brukerId,
+                            response.body()?.records!![i].proveNavn
                             )
-                            kortListe.add(post1)
+                            kortListe.add(kort)
                             i++
                     }
                 }
             }
         }
     }
-
+ */
+/**
     fun startProve(view: View) {
         val startIntent = Intent(this, ProveActivity::class.java)
         startActivity(startIntent)
     }
+    */
 }
