@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MOBProsjekt</string>
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="open">åpne</string>
+    <string name="close">lukke</string>
     <string name="applikasjonNavn">StudentTestInterface</string>
     <string name="login_side">login side</string>
     <string name="login">Login</string>

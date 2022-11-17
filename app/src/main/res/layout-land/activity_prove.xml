@@ -17,15 +17,21 @@
 
             <LinearLayout
                 android:id="@+id/resultat_skjerm"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="894dp"
+                android:layout_height="393dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="150dp"
                     android:text="@string/resultatTxt"
                     android:textSize="40sp"
                     android:textStyle="bold" />
@@ -46,15 +52,17 @@
 
             <RadioGroup
                 android:id="@+id/contactgroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="714dp"
+                android:layout_height="286dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/border"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:visibility="gone">
 
                 <TextView
                     android:id="@+id/radiogruppeTekst"
@@ -68,65 +76,59 @@
 
                 <RadioButton
                     android:id="@+id/radio1"
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border" />
 
                 <RadioButton
                     android:id="@+id/radio2"
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="33dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border" />
 
                 <RadioButton
                     android:id="@+id/radio3"
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="32dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border" />
 
                 <RadioButton
                     android:id="@+id/radio4"
-                    android:background="@drawable/border"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/forrigeKnapp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="20dp"
+                        android:onClick="forrigeSpørsmål"
+                        android:text="@string/forrige_knapp_txt"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:onClick="nesteSpørsmål"
+                        android:text="@string/neste_knapp_txt" />
+
+                </LinearLayout>
 
             </RadioGroup>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.79">
-
-                <Button
-                    android:id="@+id/forrigeKnapp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="20dp"
-                    android:onClick="forrigeSpørsmål"
-                    android:text="@string/forrige_knapp_txt"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="nesteSpørsmål"
-                    android:text="@string/neste_knapp_txt"
-                    />
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/antSpm"
@@ -136,24 +138,24 @@
                 android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.259"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.804" />
+                app:layout_constraintVertical_bias="0.979" />
 
             <ProgressBar
                 android:id="@+id/progresjonBar"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:progress="0"
                 android:scaleY="4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.875"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.888" />
+                app:layout_constraintVertical_bias="0.974" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
