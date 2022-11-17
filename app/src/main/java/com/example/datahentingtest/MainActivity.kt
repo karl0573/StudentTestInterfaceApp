@@ -1,22 +1,23 @@
 package com.example.datahentingtest
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.lifecycle.ViewModelProvider
 import com.example.datahentingtest.databasemappe.Repository
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.datahentingtest.databinding.ActivityMainBinding
-import com.example.datahentingtest.dataklasser.kortListe
 import com.example.datahentingtest.kort.KortAdapter
 import com.example.datahentingtest.kort.ListeClickListener
-import com.example.datahentingtest.dataklasser.KORT_ID
-import com.example.datahentingtest.dataklasser.Kort
 import com.example.datahentingtest.databasemappe.MainViewModel
 import com.example.datahentingtest.databasemappe.MainViewModelFactory
+import com.example.datahentingtest.dataklasser.*
 
 class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
     private lateinit var viewModel: MainViewModel
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
         binding.drawerLayout.addDrawerListener(hamburgerIkon)
         hamburgerIkon.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //hentKortData()
+        hentProfilProver()
+
         val mainActivity = this
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(applicationContext,1)
@@ -47,7 +49,11 @@ class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
             finish()
             true
         }
+
+
     }
+
+
 
     override fun onClick(kort: Kort) {
         val intent = Intent(this,ProveActivity::class.java)
@@ -94,4 +100,33 @@ class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
         startActivity(startIntent)
     }
     */
+
+private fun hentProfilProver() {
+    if(posterListe.size > 0) {
+    }
+    else {
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        var brukerId = sharedPreferences.getInt("INT_KEY", 0)
+
+        val filter = "brukerId,eq,$brukerId";
+        viewModel.getPost(filter)
+        viewModel.mutablePostResponse.observe(this) { response ->
+            if (response.isSuccessful) {
+                //teksten.text = response.body()!!.records[0].proveNavn
+                var i = 0
+                while(i < response.body()!!.records.size) {
+                    val post1 = Post(
+                        response.body()?.records!![i].brukerId,
+                        response.body()?.records!![i].proveNavn
+                    )
+                    posterListe.add(post1)
+                    i++
+                }
+            }
+        }
+    }
+}
 }

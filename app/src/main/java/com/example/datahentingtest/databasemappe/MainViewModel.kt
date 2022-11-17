@@ -3,6 +3,7 @@ package com.example.datahentingtest.databasemappe
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.datahentingtest.R
 import com.example.datahentingtest.dataklasser.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -14,8 +15,8 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     val mutableBrukerResponse: MutableLiveData<Response<RecordsBruker>> = MutableLiveData()
     val mutablePostResponse: MutableLiveData<Response<RecordsPost>> = MutableLiveData()
     val mutableBrukernavnResponse: MutableLiveData<Response<Bruker>> = MutableLiveData()
-    val mutableEndreBrukerResponse: MutableLiveData<Response<Bruker>> = MutableLiveData()
-    val mutableSlettProveResponse: MutableLiveData<Response<Post>> = MutableLiveData()
+   // val mutableEndreBrukerResponse: MutableLiveData<Response<Bruker>> = MutableLiveData()
+   // val mutableSlettProveResponse: MutableLiveData<Response<Post>> = MutableLiveData()
 
     fun getBrukernavn(verdi: Int) {
         viewModelScope.launch {
@@ -70,15 +71,15 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 
     fun endreBrukernavn(verdi: Int, brukers: Bruker) {
         viewModelScope.launch {
-            val responseEndreBrukernavn : Response<Bruker> = repository.endreBrukernavn(verdi, brukers)
-            mutableEndreBrukerResponse.value = responseEndreBrukernavn
+            val responseEndreBrukernavn  = repository.endreBrukernavn(verdi, brukers)
+           // mutableEndreBrukerResponse.value = responseEndreBrukernavn
         }
     }
 
     fun slettProve(proveNavn: String) {
         viewModelScope.launch {
-            val responseProvenSlett : Response<Post> = repository.slettProve(proveNavn)
-            mutableSlettProveResponse.value = responseProvenSlett
+            val responseProvenSlett = repository.slettProve(proveNavn)
+           // mutableSlettProveResponse.value = responseProvenSlett
         }
     }
 }

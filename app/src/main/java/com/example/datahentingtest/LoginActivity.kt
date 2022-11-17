@@ -1,5 +1,6 @@
 package com.example.datahentingtest
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -44,7 +45,19 @@ class LoginActivity : AppCompatActivity() {
             true
         }
     }
-
+/*
+    private fun lagreData() {
+       // val brukernavnText = binding.editTextTextPersonName.text.toString()
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("INT_KEY", brukernavnText).apply()
+    } */
+/*
+    private fun hentData() {
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val savedInt = sharedPreferences.getInt("INT_KEY", null)
+    }
+*/
     private fun hentKortData(){
         if(kortListe.size > 0) {
         }
@@ -77,7 +90,9 @@ class LoginActivity : AppCompatActivity() {
             val repository = Repository()
             val viewModelFactory = MainViewModelFactory(repository)
             viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-            var brukerId = 19
+             val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        var brukerId = sharedPreferences.getInt("INT_KEY", 0)
+
             val filter = "brukerId,eq,$brukerId";
             viewModel.getPost(filter)
             viewModel.mutablePostResponse.observe(this) { response ->
@@ -137,6 +152,11 @@ class LoginActivity : AppCompatActivity() {
                     )
                     if(size > 0 && bruker1.usersPwd == binding.editTextTextPassword.text.toString()) {
                    //     Toast.makeText(applicationContext, "Brukereren finnes JIPPI", Toast.LENGTH_SHORT).show();
+                   // val brukernavnText = binding.editTextTextPersonName.text.toString()
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("INT_KEY", response.body()!!.records[0].usersId).apply()
+
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()

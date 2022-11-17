@@ -31,11 +31,11 @@ interface SQLAPI {
         @Query("filter")filter: String): Response<RecordsBruker>
 
     @DELETE("BrukerQuiz/{proveNavn}")
-    suspend fun slettProve(@Path("proveNavn") proveNavn: String): Response<Post>
+    suspend fun slettProve(@Path("proveNavn") proveNavn: String)
 
     @PUT("users/{usersId}")
     suspend fun endreBrukernavn(@Path("usersId") usersId: Int,
-                                @Body brukers: Bruker): Response<Bruker>
+                                @Body brukers: Bruker)
 
 
     //@GET("users?filter=usersUid,eq,tester")

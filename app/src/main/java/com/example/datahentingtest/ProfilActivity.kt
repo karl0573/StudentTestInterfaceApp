@@ -21,7 +21,7 @@ import com.example.datahentingtest.databasemappe.Repository
 import com.example.datahentingtest.databasemappe.MainViewModel
 import com.example.datahentingtest.databasemappe.MainViewModelFactory
 import com.example.datahentingtest.databinding.ActivityProfilBinding
-
+import okhttp3.internal.notifyAll
 
 
 class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
@@ -43,7 +43,7 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
         binding.drawerLayout.addDrawerListener(hamburgerIkon)
         hamburgerIkon.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-       // hentProfilProver()
+        //hentProfilProver()
         val profilActivity = this
         binding.recyclerView?.apply {
             layoutManager = GridLayoutManager(applicationContext, 1)
@@ -63,11 +63,13 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
         hentBrukernavn()
     }
 
-    fun hentBrukernavn() {
+    private fun hentBrukernavn() {
         val repository2 = Repository()
         val viewModelFactory2 = MainViewModelFactory(repository2)
         viewModel2 = ViewModelProvider(this, viewModelFactory2)[MainViewModel::class.java]
-        viewModel2.getBrukernavn(19)
+         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val savedInt = sharedPreferences.getInt("INT_KEY", 0)
+        viewModel2.getBrukernavn(savedInt)
         viewModel2.mutableBrukernavnResponse.observe(this) { response ->
             if (response.isSuccessful) {
                 binding.textView2.text = response.body()!!.usersUid
@@ -122,7 +124,7 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
         binding.textView2.visibility = View.GONE
         binding.editText!!.visibility = View.VISIBLE
 
-        /*
+
         binding.textView2.visibility = View.GONE
         binding.editText!!.visibility = View.VISIBLE
         if(currentNavn != binding.editText!!.text.toString()) {
@@ -137,7 +139,7 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
         } else {
             Toast.makeText(applicationContext, "Brukernavnet er allerede i bruk!", Toast.LENGTH_SHORT).show();
         }
-        */
+
     }
 
     fun avbrytKnapp(view: View) {
@@ -152,14 +154,14 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
     }
 
     fun bekreftKnapp(view: View) {
-        if(binding.editText!!.text.toString().length == 0) {
+        if(binding.editText!!.text.toString().isEmpty()) {
             binding.txtProfilFeilmelding!!.text = "Brukernavn kan ikke bestå av 0 bokstaver"
         } else {
             val repository = Repository()
             val viewModelFactory = MainViewModelFactory(repository)
             viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
             var brukerId = binding.editText!!.text.toString()
-            val filter = "usersUid,eq," + brukerId;
+            val filter = "usersUid,eq,$brukerId";
             viewModel.getBruker(filter)
             viewModel.mutableBrukerResponse.observe(this) { response ->
                 var sizen = response.body()!!.records.size
@@ -177,24 +179,27 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
                     binding.textView2.text = binding.editText!!.text.toString()
                     binding.txtProfilFeilmelding!!.text = ""
 
+                     val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+                    var brukerId = sharedPreferences.getInt("INT_KEY", 0)
+
                     var brukeren = Bruker(
-                        19,
-                        "testing",
-                        "sigvedankel2@gmail.com",
+                        brukerId,
+                        "tester",
+                        "tester@gmail.com",
                         binding.editText!!.text.toString(),
-                        "testing"
+                        "tester"
                     )
-                /*
+
                     val repository2 = Repository()
                     val viewModelFactory2 = MainViewModelFactory(repository2)
                     viewModel3 = ViewModelProvider(this, viewModelFactory2)[MainViewModel::class.java]
-                    viewModel3.endreBrukernavn(19,brukeren) */
+                    viewModel3.endreBrukernavn(brukerId,brukeren)
                 }
             }
         }
     }
 
-    fun View.fjernTastatur() {
+    private fun View.fjernTastatur() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
@@ -204,16 +209,17 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
         alertDialogBuilder.setMessage("Er du sikker på at du vil slette prøven?")
         alertDialogBuilder.setCancelable(false)
         alertDialogBuilder.setPositiveButton("Ja") { a, b ->
+
             var hent = posterListe.indexOf(post)
             var navn = post.proveNavn
             posterListe.removeAt(hent)
             binding.recyclerView?.adapter?.notifyItemRemoved(hent)
-/*
+
             val repository3 = Repository()
             val viewModelFactory3 = MainViewModelFactory(repository3)
             viewModel3 = ViewModelProvider(this, viewModelFactory3)[MainViewModel::class.java]
             viewModel3.slettProve(navn)
- */
+
         }
         alertDialogBuilder.setNegativeButton("Nei") { a, b ->
         }

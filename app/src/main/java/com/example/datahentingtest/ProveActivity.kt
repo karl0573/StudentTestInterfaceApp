@@ -60,7 +60,7 @@ class ProveActivity : AppCompatActivity() {
         return null
     }
 
-    fun getAlleSvar(): MutableList<Svar> {
+    private fun getAlleSvar(): MutableList<Svar> {
         val returListe = mutableListOf<Svar>()
         var i = 0
         while(i < prøveListe.size) {
@@ -197,7 +197,7 @@ class ProveActivity : AppCompatActivity() {
         }
     }
 
-    fun oppdater() {
+    private fun oppdater() {
         riktigSvaret = prøveListe.get(indexPos).RiktigSvar
         binding.radiogruppeTekst!!.text = prøveListe.get(indexPos).OppgaveTekst
         binding.radio1.text = randomSvarListe.get(indexPos).svar1
