@@ -12,20 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <Button
-            android:id="@+id/button"
-            style="@style/Widget.Material3.Button.Icon"
-            android:layout_width="199dp"
-            android:layout_height="48dp"
-            android:onClick="loggInn"
-            android:text="@string/login"
-            android:textSize="20sp"
+        <TextView
+            android:id="@+id/txtFeilmelding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@color/red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.598" />
+            app:layout_constraintVertical_bias="0.188" />
 
         <EditText
             android:id="@+id/editTextTextPersonName"
@@ -34,7 +31,7 @@
             android:layout_marginBottom="265dp"
             android:autofillHints=""
             android:ems="10"
-            android:hint="Navn/Epost"
+            android:hint="@string/hintBrukernavn"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +47,7 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/passord"
+            android:hint="@string/hintPassord"
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:textColorHint="#757575"
@@ -60,6 +57,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.453" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="199dp"
+            android:layout_height="48dp"
+            android:onClick="loggInn"
+            android:text="@string/login"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.598" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,6 @@
-package com.example.datahentingtest.api
+package com.example.datahentingtest.databasemappe
 
-import com.example.datahentingtest.util.Constants.Companion.BASE_URL
+import com.example.datahentingtest.databasemappe.Constants.Companion.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit

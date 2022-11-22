@@ -1,8 +1,7 @@
-package com.example.datahentingtest.viewModel
+package com.example.datahentingtest.databasemappe
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.datahentingtest.repository.Repository
 
 class MainViewModelFactory(
     private val repository: Repository

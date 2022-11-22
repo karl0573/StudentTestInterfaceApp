@@ -3,11 +3,11 @@ package com.example.datahentingtest.kort
 import androidx.recyclerview.widget.RecyclerView
 import com.example.datahentingtest.R
 import com.example.datahentingtest.databinding.ProveCardLayoutBinding
-import com.example.datahentingtest.model.Kort
+import com.example.datahentingtest.dataklasser.Kort
 
- class KortViewHolder(
+class KortViewHolder(
     private val cardCellBinding: ProveCardLayoutBinding,
-    private val clickListener: KortClickListener
+    private val clickListener: ListeClickListener<Kort>
  ) : RecyclerView.ViewHolder(cardCellBinding.root) {
 
     fun bindProve(prove: Kort) {

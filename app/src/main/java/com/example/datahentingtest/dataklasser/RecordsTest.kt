@@ -1,4 +1,4 @@
-package com.example.datahentingtest.model
+package com.example.datahentingtest.dataklasser
 
 data class RecordsTest (
     val records: List<Prove>
