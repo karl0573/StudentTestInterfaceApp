@@ -17,4 +17,17 @@
     <string name="slettProve">Slett</string>
     <string name="bekreft">Bekreft</string>
     <string name="avbryt">Avbryt</string>
+    <string name="fmNullTegn">Brukernavn kan ikke bestå av 0 bokstaver</string>
+    <string name="fmNavnTatt">Brukernavn er allerede tatt</string>
+    <string name="abBekreft">Er du sikker på at du vil slette prøven?</string>
+    <string name="abJa">Ja</string>
+    <string name="abNei">Nei</string>
+    <string name="fmVelgSvar">Du må velge ett svaralternativ</string>
+    <string name="txtSpmNr">Spørsmål:</string>
+    <string name="txtPoengsum">Poengsum:</string>
+    <string name="fmFyllNavn">Du må fylle ut brukernavnfeltet</string>
+    <string name="fmFyllPassord">Du må fylle ut passordfeltet</string>
+    <string name="fmFinnesIkke">Brukernavnet finnes ikke</string>
+    <string name="fmFeilPassord">Feil passord</string>
+    <string name="kortBrukerID">Bruker ID:</string>
 </resources>

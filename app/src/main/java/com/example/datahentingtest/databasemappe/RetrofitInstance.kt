@@ -1,12 +1,13 @@
 package com.example.datahentingtest.databasemappe
 
-import com.example.datahentingtest.databasemappe.Constants.Companion.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitInstance {
+    private const val BASE_URL = "https://studenttestinterface.com/api.php/records/"
+
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()

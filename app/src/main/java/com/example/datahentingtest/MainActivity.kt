@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.graphics.toColor
+import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import com.example.datahentingtest.databasemappe.Repository
 import androidx.databinding.DataBindingUtil
@@ -49,11 +51,7 @@ class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
             finish()
             true
         }
-
-
     }
-
-
 
     override fun onClick(kort: Kort) {
         val intent = Intent(this,ProveActivity::class.java)
@@ -94,39 +92,27 @@ class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
         }
     }
  */
-/**
-    fun startProve(view: View) {
-        val startIntent = Intent(this, ProveActivity::class.java)
-        startActivity(startIntent)
-    }
-    */
 
-private fun hentProfilProver() {
-    if(posterListe.size > 0) {
-    }
-    else {
-        val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        var brukerId = sharedPreferences.getInt("INT_KEY", 0)
-
-        val filter = "brukerId,eq,$brukerId";
-        viewModel.getPost(filter)
-        viewModel.mutablePostResponse.observe(this) { response ->
-            if (response.isSuccessful) {
-                //teksten.text = response.body()!!.records[0].proveNavn
-                var i = 0
-                while(i < response.body()!!.records.size) {
-                    val post1 = Post(
-                        response.body()?.records!![i].brukerId,
-                        response.body()?.records!![i].proveNavn
-                    )
-                    posterListe.add(post1)
-                    i++
+    private fun hentProfilProver() {
+        if(posterListe.size == 0) {
+            val repository = Repository()
+            val viewModelFactory = MainViewModelFactory(repository)
+            viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+            val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+            var brukerId = sharedPreferences.getInt("INT_KEY", 0)
+            val filter = "brukerId,eq,$brukerId";
+            viewModel.getPost(filter)
+            viewModel.mutablePostResponse.observe(this) { response ->
+                if (response.isSuccessful) {
+                    for(i in response.body()!!.records.indices) {
+                        val post1 = Post(
+                            response.body()?.records!![i].brukerId,
+                            response.body()?.records!![i].proveNavn
+                        )
+                        posterListe.add(post1)
+                    }
                 }
             }
         }
     }
-}
 }

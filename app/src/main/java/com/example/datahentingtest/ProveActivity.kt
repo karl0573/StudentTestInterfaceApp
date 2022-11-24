@@ -1,5 +1,6 @@
 package com.example.datahentingtest
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,28 +11,29 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.datahentingtest.databinding.ActivityProveBinding
 import com.example.datahentingtest.dataklasser.*
 import com.example.datahentingtest.databasemappe.Repository
 import com.example.datahentingtest.databasemappe.MainViewModel
 import com.example.datahentingtest.databasemappe.MainViewModelFactory
+import com.example.datahentingtest.databinding.ActivityProveBinding
 
 class ProveActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
-    lateinit var binding: ActivityProveBinding
+    private lateinit var binding: ActivityProveBinding
     private lateinit var hamburgerIkon: ActionBarDrawerToggle
     private lateinit var startIntent: Intent
     private lateinit var riktigSvaret: String
-    lateinit var prøveListe: MutableList<Prove>
+    private lateinit var prøveListe: MutableList<Prove>
     private lateinit var randomSvarListe: MutableList<Svar>
-    var spørsmålNr = 1
-    private var antallSporsmal = 0; var poengsum = 0; var indexPos = 0
-    private var verdi = 0
+    private var spørsmålNr = 1
+    private var antallSporsmal = 0;
+    private var indexPos = 0
+    private var huskeListe: MutableList<Int> = ArrayList()
+    private var brukerSvar: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prove)
-
         val kortID = intent.getStringExtra(KORT_ID)
         val kort = kortFraID(kortID!!)
         val proveNavnet = kort!!.proveNavn
@@ -62,9 +64,8 @@ class ProveActivity : AppCompatActivity() {
 
     private fun getAlleSvar(): MutableList<Svar> {
         val returListe = mutableListOf<Svar>()
-        var i = 0
-        while(i < prøveListe.size) {
-            val svarListe = listOf(prøveListe.get(i).RiktigSvar, prøveListe.get(i).Svar2,  prøveListe.get(i).Svar3, prøveListe.get(i).Svar4)
+        for(i in prøveListe.indices) {
+            val svarListe = listOf(prøveListe[i].RiktigSvar, prøveListe[i].Svar2,  prøveListe[i].Svar3, prøveListe[i].Svar4)
             val randomListe = svarListe.shuffled()
             val svar = Svar(
                 randomListe[0],
@@ -73,7 +74,6 @@ class ProveActivity : AppCompatActivity() {
                 randomListe[3],
             )
             returListe.add(svar)
-            i++
         }
         return returListe
     }
@@ -86,8 +86,7 @@ class ProveActivity : AppCompatActivity() {
         viewModel.getProven(proveNavn)
         viewModel.mutableProvenResponse.observe(this) { response ->
             if (response.isSuccessful) {
-                var i = 0
-                while(i < response.body()!!.records.size) {
+                for(i in response.body()!!.records.indices) {
                     val prove1 = Prove(
                         response.body()!!.records[i].SpørsmålNr,
                         response.body()!!.records[i].OppgaveTekst,
@@ -97,7 +96,6 @@ class ProveActivity : AppCompatActivity() {
                         response.body()!!.records[i].Svar4,
                     )
                     prøveListe.add(prove1)
-                    i++
                 }
                 antallSporsmal = prøveListe.size
                 binding.progresjonBar.max = antallSporsmal
@@ -113,83 +111,72 @@ class ProveActivity : AppCompatActivity() {
     fun nesteSpørsmål(view: View) {
         if(spørsmålNr >= antallSporsmal) {  // Sjekker om det fortsatt er flere spørsmål.Viser resultatskjerm hvis det er tomt
             if(binding.contactgroup.checkedRadioButtonId == -1) {
-                Toast.makeText(applicationContext, "Du må velge ett svaralternativ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.fmVelgSvar), Toast.LENGTH_SHORT).show()
             }
             else {
                 when (binding.contactgroup.checkedRadioButtonId) {
-                    R.id.radio1 ->
-                        if (binding.radio1.text == riktigSvaret)
-                            poengsum += 1
-                    R.id.radio2 ->
-                        if (binding.radio2.text == riktigSvaret)
-                            poengsum += 1
-                    R.id.radio3 ->
-                        if (binding.radio3.text == riktigSvaret)
-                            poengsum += 1
-                    R.id.radio4 ->
-                        if (binding.radio4.text == riktigSvaret)
-                            poengsum += 1
+                    R.id.radio1 -> brukerSvar.add(indexPos, binding.radio1.text.toString())
+                    R.id.radio2 -> brukerSvar.add(indexPos, binding.radio2.text.toString())
+                    R.id.radio3 -> brukerSvar.add(indexPos, binding.radio3.text.toString())
+                    R.id.radio4 -> brukerSvar.add(indexPos, binding.radio4.text.toString())
                 }
-                binding.contactgroup.visibility = View.GONE
-                binding.antSpm.visibility = View.GONE
-                binding.progresjonBar.visibility = View.GONE
-                binding.button2.visibility = View.GONE
-                binding.forrigeKnapp!!.visibility = View.GONE
-                binding.resultatSkjerm.visibility = View.VISIBLE
-                binding.txtPoengsum!!.text = "Poengsum: $poengsum/$antallSporsmal"
+                var poeng = 0
+                for(i in prøveListe.indices) {
+                    if(brukerSvar[i] == prøveListe[i].RiktigSvar)
+                        poeng++
+                }
+                binding.apply {
+                    contactgroup.visibility = View.GONE
+                    antSpm.visibility = View.GONE
+                    progresjonBar.visibility = View.GONE
+                    knappMeny!!.visibility = View.GONE
+                    resultatSkjerm.visibility = View.VISIBLE
+                    txtPoengsum.text = getString(R.string.txtPoengsum) + poeng + "/" + antallSporsmal
+                }
             }
-        }
-
-        else {
+        } else {
             if(binding.contactgroup.checkedRadioButtonId == -1) {
-                Toast.makeText(applicationContext, "Du må velge ett svaralternativ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.fmVelgSvar), Toast.LENGTH_SHORT).show()
             }
             else {
                 when (binding.contactgroup.checkedRadioButtonId) {
                     R.id.radio1 -> {
-                        if (binding.radio1.text == riktigSvaret)
-                            poengsum += 1
-                        verdi = 1
+                        brukerSvar.add(indexPos,binding.radio1.text.toString())
+                        huskeListe.add(indexPos,1)
                     }
                     R.id.radio2 -> {
-                        if (binding.radio2.text == riktigSvaret)
-                            poengsum += 1
-                        verdi = 2
+                        brukerSvar.add(indexPos,binding.radio2.text.toString())
+                        huskeListe.add(indexPos,2)
                     }
                     R.id.radio3 -> {
-                        if (binding.radio3.text == riktigSvaret)
-                            poengsum += 1
-                        verdi = 3
+                        brukerSvar.add(indexPos,binding.radio3.text.toString())
+                        huskeListe.add(indexPos,3)
                     }
                     R.id.radio4 -> {
-                        if (binding.radio4.text == riktigSvaret)
-                            poengsum += 1
-                        verdi = 4
+                        brukerSvar.add(indexPos,binding.radio4.text.toString())
+                        huskeListe.add(indexPos,4)
                     }
                 }
                 binding.contactgroup.clearCheck()
                 binding.progresjonBar.setProgress(spørsmålNr)
-                indexPos += 1
                 spørsmålNr += 1
-                if(spørsmålNr > 1) {
-                    binding.forrigeKnapp!!.visibility = View.VISIBLE
-                }
+                indexPos += 1
+                if(spørsmålNr > 1)
+                    binding.forrigeKnapp.visibility = View.VISIBLE
                 oppdater()
             }
         }
     }
 
+
     fun forrigeSpørsmål(view: View) {
         spørsmålNr  -= 1
         indexPos    -= 1
-        poengsum    -= 1
-        binding.progresjonBar.setProgress(spørsmålNr-1)
-        if(spørsmålNr == 1) {
+        binding.progresjonBar.progress = spørsmålNr-1
+        if(spørsmålNr == 1)
             binding.forrigeKnapp!!.visibility = View.GONE
-            poengsum = 0
-        }
         oppdater()
-        when(verdi) {
+        when(huskeListe[indexPos]) {
             1 -> binding.contactgroup.check(R.id.radio1)
             2 -> binding.contactgroup.check(R.id.radio2)
             3 -> binding.contactgroup.check(R.id.radio3)
@@ -197,14 +184,14 @@ class ProveActivity : AppCompatActivity() {
         }
     }
 
-    private fun oppdater() {
-        riktigSvaret = prøveListe.get(indexPos).RiktigSvar
-        binding.radiogruppeTekst!!.text = prøveListe.get(indexPos).OppgaveTekst
-        binding.radio1.text = randomSvarListe.get(indexPos).svar1
-        binding.radio2.text = randomSvarListe.get(indexPos).svar2
-        binding.radio3.text = randomSvarListe.get(indexPos).svar3
-        binding.radio4.text = randomSvarListe.get(indexPos).svar4
-        binding.antSpm.text = "Spørsmål: $spørsmålNr/$antallSporsmal"
+    fun oppdater() {
+        riktigSvaret = prøveListe[indexPos].RiktigSvar
+        binding.radiogruppeTekst.text = prøveListe[indexPos].OppgaveTekst
+        binding.radio1.text = randomSvarListe[indexPos].svar1
+        binding.radio2.text = randomSvarListe[indexPos].svar2
+        binding.radio3.text = randomSvarListe[indexPos].svar3
+        binding.radio4.text = randomSvarListe[indexPos].svar4
+        binding.antSpm.text = getString(R.string.txtSpmNr) + spørsmålNr + "/" + antallSporsmal
     }
 
     fun avsluttProve(view: View) {

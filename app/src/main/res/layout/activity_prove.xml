@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="-200dp">
+    >
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -13,6 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="-200dp"
             tools:context=".ProveActivity">
 
             <LinearLayout
@@ -97,6 +98,7 @@
             </RadioGroup>
 
             <LinearLayout
+                android:id="@+id/knappMeny"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -154,7 +156,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.888" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -164,6 +165,5 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:menu="@menu/meny_liste" />
-
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

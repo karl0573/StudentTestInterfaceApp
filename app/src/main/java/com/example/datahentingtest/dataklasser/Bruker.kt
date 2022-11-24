@@ -1,6 +1,5 @@
 package com.example.datahentingtest.dataklasser
 
-
 data class Bruker(
     val usersId: Int,
     val usersName: String,

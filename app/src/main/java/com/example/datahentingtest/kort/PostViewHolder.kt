@@ -7,14 +7,12 @@ import com.example.datahentingtest.dataklasser.Post
 
 class PostViewHolder(
     private val cardCellBinding: ProfilCardLayoutBinding,
-    private val clickListener: ListeClickListener<Post>
-
-) : RecyclerView.ViewHolder(cardCellBinding.root) {
+    private val clickListener: ListeClickListener<Post>) : RecyclerView.ViewHolder(cardCellBinding.root) {
 
     fun bindProve(post: Post) {
         cardCellBinding.cardImage.setImageResource(R.drawable.blyant)
         cardCellBinding.cardTittel.text = post.proveNavn
-        cardCellBinding.cardBruker.text = "Bruker ID: ${post.brukerId.toString()}"
+        cardCellBinding.cardBruker.text = "Bruker ID: " + post.brukerId.toString()
         cardCellBinding.btSlett.setOnClickListener{
             clickListener.onClick(post)
         }
