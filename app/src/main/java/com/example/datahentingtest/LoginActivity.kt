@@ -89,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
             viewModel.mutablePostResponse.observe(this) { response ->
                 if (response.isSuccessful) {
                     for(i in response.body()!!.records.indices) {
-                        val post1 = Post(
+                        val post1 = Kort(
                             response.body()?.records!![i].brukerId,
                             response.body()?.records!![i].proveNavn
                         )

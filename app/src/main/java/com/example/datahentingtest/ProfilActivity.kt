@@ -22,7 +22,7 @@ import com.example.datahentingtest.databasemappe.MainViewModelFactory
 import com.example.datahentingtest.databinding.ActivityProfilBinding
 import okhttp3.internal.notifyAll
 
-class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
+class ProfilActivity : AppCompatActivity(), ListeClickListener<Kort> {
     private lateinit var binding: com.example.datahentingtest.databinding.ActivityProfilBinding
     private lateinit var hamburgerIkon: ActionBarDrawerToggle
     private lateinit var startIntent: Intent
@@ -167,7 +167,7 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Post> {
         }
     }
 
-    override fun onClick(post: Post) {
+    override fun onClick(post: Kort) {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setMessage(getString(R.string.abBekreft))
         alertDialogBuilder.setCancelable(false)
