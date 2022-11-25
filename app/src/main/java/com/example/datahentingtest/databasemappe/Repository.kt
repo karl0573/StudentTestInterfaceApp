@@ -20,11 +20,6 @@ class Repository {
         return RetrofitInstance.api.getProven(verdier)
     }
 
-    /*
-    suspend fun getBruker(Uid: String): Response<RecordsBruker> {
-        return RetrofitInstance.api.getBruker(Uid)
-    }
-    */
     suspend fun getBruker(Uid: String): Response<RecordsBruker> {
         return RetrofitInstance.api.getBruker(Uid)
     }
@@ -40,6 +35,4 @@ class Repository {
     suspend fun endreBrukernavn(usersUid: Int, brukers: Bruker) {
         return RetrofitInstance.api.endreBrukernavn(usersUid, brukers)
     }
-
-
 }

@@ -8,5 +8,5 @@
         android:title="Profil"/>
     <item
         android:id="@+id/loginItem"
-        android:title="Login"/>
+        android:title="Login" />
 </menu>

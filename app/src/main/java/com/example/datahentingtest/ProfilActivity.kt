@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -19,12 +18,10 @@ import com.example.datahentingtest.dataklasser.*
 import com.example.datahentingtest.databasemappe.Repository
 import com.example.datahentingtest.databasemappe.MainViewModel
 import com.example.datahentingtest.databasemappe.MainViewModelFactory
-import com.example.datahentingtest.databinding.ActivityProfilBinding
-import okhttp3.internal.notifyAll
 
 class ProfilActivity : AppCompatActivity(), ListeClickListener<Kort> {
     private lateinit var binding: com.example.datahentingtest.databinding.ActivityProfilBinding
-    private lateinit var hamburgerIkon: ActionBarDrawerToggle
+    private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var startIntent: Intent
     private lateinit var viewModel: MainViewModel
     private lateinit var viewModel2: MainViewModel
@@ -34,16 +31,14 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Kort> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profil)
-        hamburgerIkon= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
-        binding.drawerLayout.addDrawerListener(hamburgerIkon)
-        hamburgerIkon.syncState()
+        drawerToggle= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //hentProfilProver()
-        val profilActivity = this
-        binding.recyclerView?.apply {
-            layoutManager = GridLayoutManager(applicationContext, 1)
-            adapter = PostAdapter(posterListe,profilActivity)
-        }
+
+        binding.recyclerView.layoutManager = GridLayoutManager(applicationContext, 1)
+        binding.recyclerView.adapter = PostAdapter(posterListe,this)
+
         binding.navView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.hjemItem -> startIntent = Intent(this, MainActivity::class.java)
@@ -72,34 +67,6 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Kort> {
             }
         }
     }
-
-/*
-    private fun hentProfilProver() {
-        if(posterListe.size > 0) {
-        }
-        else {
-            val repository = Repository()
-                val viewModelFactory = MainViewModelFactory(repository)
-                viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-                var brukerId = 19
-                val filter = "brukerId,eq,$brukerId";
-                viewModel.getPost(filter)
-                viewModel.mutablePostResponse.observe(this) { response ->
-                    if (response.isSuccessful) {
-                        //teksten.text = response.body()!!.records[0].proveNavn
-                        var i = 0
-                        while(i < response.body()!!.records.size) {
-                            val post1 = Post(
-                                response.body()?.records!![i].brukerId,
-                                response.body()?.records!![i].proveNavn
-                                )
-                                posterListe.add(post1)
-                                i++
-                        }
-                    }
-                }
-        } 
-    } */
 
     fun endreBrukernavn(view: View) {
         binding.apply {
@@ -192,9 +159,7 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Kort> {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(hamburgerIkon.onOptionsItemSelected(item)) {
-            true
-        }
+        if(drawerToggle.onOptionsItemSelected(item)) true
         return super.onOptionsItemSelected(item)
     }
 }

@@ -5,7 +5,6 @@ import com.example.datahentingtest.R
 import com.example.datahentingtest.databinding.ProfilCardLayoutBinding
 import com.example.datahentingtest.dataklasser.Kort
 
-
 class PostViewHolder(
     private val cardCellBinding: ProfilCardLayoutBinding,
     private val clickListener: ListeClickListener<Kort>) : RecyclerView.ViewHolder(cardCellBinding.root) {

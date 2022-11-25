@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.datahentingtest.databinding.ActivityLoginBinding
 import com.example.datahentingtest.databasemappe.Repository
@@ -21,15 +21,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel2: MainViewModel
     private lateinit var viewModel3: MainViewModel
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var hamburgerIkon: ActionBarDrawerToggle
+    private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var startIntent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        hamburgerIkon= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
-        binding.drawerLayout.addDrawerListener(hamburgerIkon)
-        hamburgerIkon.syncState()
+        drawerToggle= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         hentKortData()
         hentProfilProver()
@@ -44,19 +44,7 @@ class LoginActivity : AppCompatActivity() {
             true
         }
     }
-/*
-    private fun lagreData() {
-       // val brukernavnText = binding.editTextTextPersonName.text.toString()
-        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putInt("INT_KEY", brukernavnText).apply()
-    } */
-/*
-    private fun hentData() {
-        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val savedInt = sharedPreferences.getInt("INT_KEY", null)
-    }
-*/
+
     private fun hentKortData(){
         if(kortListe.size == 0) {
             val repository = Repository()
@@ -101,12 +89,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun loggInn(view: View) {
-        if(binding.editTextTextPersonName.text.toString().isEmpty()) {
+        if(binding.editTextTextPersonName.text.toString().isEmpty())
             binding.txtFeilmelding.text = getString(R.string.fmFyllNavn)
-        }
-        else if(binding.editTextTextPassword.text.toString().isEmpty()) {
+        else if(binding.editTextTextPassword.text.toString().isEmpty())
             binding.txtFeilmelding.text = getString(R.string.fmFyllPassord)
-        }
         else {
             val repository = Repository()
             val viewModelFactory = MainViewModelFactory(repository)
@@ -117,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
             viewModel3.mutableBrukerResponse.observe(this) { response ->
                 var size = response.body()!!.records.size
                 if(size == 0) {
-                    binding.txtFeilmelding?.text = getString(R.string.fmFinnesIkke)
+                    binding.txtFeilmelding.text = getString(R.string.fmFinnesIkke)
                 } else {
                     var bruker1 = Bruker(
                         response.body()!!.records[0].usersId,
@@ -135,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     }
                     else {
-                        binding.txtFeilmelding?.text = getString(R.string.fmFeilPassord)
+                        binding.txtFeilmelding.text = getString(R.string.fmFeilPassord)
                     }
                 }
             }
@@ -143,9 +129,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(hamburgerIkon.onOptionsItemSelected(item)) {
-            true
-        }
+        if(drawerToggle.onOptionsItemSelected(item)) true
         return super.onOptionsItemSelected(item)
     }
 }

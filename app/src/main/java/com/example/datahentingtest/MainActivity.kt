@@ -5,11 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.graphics.toColor
-import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import com.example.datahentingtest.databasemappe.Repository
 import androidx.databinding.DataBindingUtil
@@ -24,23 +20,21 @@ import com.example.datahentingtest.dataklasser.*
 class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-    private lateinit var hamburgerIkon: ActionBarDrawerToggle
+    private lateinit var drawerToggle: ActionBarDrawerToggle
     lateinit var startIntent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        hamburgerIkon= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
-        binding.drawerLayout.addDrawerListener(hamburgerIkon)
-        hamburgerIkon.syncState()
+        drawerToggle= ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         hentProfilProver()
 
-        val mainActivity = this
-        binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(applicationContext,1)
-            adapter = KortAdapter(kortListe,mainActivity)
-        }
+        binding.recyclerView.layoutManager = GridLayoutManager(applicationContext,1)
+        binding.recyclerView.adapter = KortAdapter(kortListe,this)
+
         binding.navView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.hjemItem -> startIntent = Intent(this, MainActivity::class.java)
@@ -57,41 +51,13 @@ class MainActivity : AppCompatActivity(), ListeClickListener<Kort> {
         val intent = Intent(this,ProveActivity::class.java)
         intent.putExtra(KORT_ID,kort.proveNavn)
         startActivity(intent)
+        finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(hamburgerIkon.onOptionsItemSelected(item)) {
-            true
-        }
+        if(drawerToggle.onOptionsItemSelected(item)) true
         return super.onOptionsItemSelected(item)
     }
-
-/*
-    private fun hentKortData(){
-        if(kortListe.size > 0) {
-        }
-        else {
-            val repository = Repository()
-            val viewModelFactory = MainViewModelFactory(repository)
-            viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-            viewModel.getAlleProver()
-            viewModel.mutableAlleProverResponse.observe(this) { response ->
-                if (response.isSuccessful) {
-                    //teksten.text = response.body()!!.records[0].proveNavn
-                    var i = 0
-                    while(i < response.body()!!.records.size) {
-                        val kort = Kort(
-                            response.body()?.records!![i].brukerId,
-                            response.body()?.records!![i].proveNavn
-                            )
-                            kortListe.add(kort)
-                            i++
-                    }
-                }
-            }
-        }
-    }
- */
 
     private fun hentProfilProver() {
         if(posterListe.size == 0) {

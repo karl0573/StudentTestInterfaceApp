@@ -1,6 +1,5 @@
 package com.example.datahentingtest
 
-import android.app.ProgressDialog.show
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,7 +19,7 @@ import com.example.datahentingtest.databinding.ActivityProveBinding
 class ProveActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityProveBinding
-    private lateinit var hamburgerIkon: ActionBarDrawerToggle
+    private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var startIntent: Intent
     private lateinit var riktigSvaret: String
     private lateinit var prøveListe: MutableList<Prove>
@@ -39,9 +38,9 @@ class ProveActivity : AppCompatActivity() {
         val proveNavnet = kort!!.proveNavn
         hentProveData(proveNavnet)
 
-        hamburgerIkon = ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
-        binding.drawerLayout.addDrawerListener(hamburgerIkon)
-        hamburgerIkon.syncState()
+        drawerToggle = ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navView.setNavigationItemSelectedListener {
             when(it.itemId){
@@ -201,8 +200,7 @@ class ProveActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(hamburgerIkon.onOptionsItemSelected(item))
-            true
+        if(drawerToggle.onOptionsItemSelected(item)) true
         return super.onOptionsItemSelected(item)
     }
 }

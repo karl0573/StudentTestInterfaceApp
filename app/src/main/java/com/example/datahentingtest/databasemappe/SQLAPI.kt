@@ -36,9 +36,5 @@ interface SQLAPI {
     @PUT("users/{usersId}")
     suspend fun endreBrukernavn(@Path("usersId") usersId: Int,
                                 @Body brukers: Bruker)
-
-
-    //@GET("users?filter=usersUid,eq,tester")
-    //suspend fun getBruker(@Query("filter") tester: String): Response<RecordsBruker>
 }
 

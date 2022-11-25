@@ -3,7 +3,6 @@ package com.example.datahentingtest.databasemappe
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.datahentingtest.R
 import com.example.datahentingtest.dataklasser.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -15,8 +14,6 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     val mutableBrukerResponse: MutableLiveData<Response<RecordsBruker>> = MutableLiveData()
     val mutablePostResponse: MutableLiveData<Response<RecordsPost>> = MutableLiveData()
     val mutableBrukernavnResponse: MutableLiveData<Response<Bruker>> = MutableLiveData()
-   // val mutableEndreBrukerResponse: MutableLiveData<Response<Bruker>> = MutableLiveData()
-   // val mutableSlettProveResponse: MutableLiveData<Response<Post>> = MutableLiveData()
 
     fun getBrukernavn(verdi: Int) {
         viewModelScope.launch {
@@ -54,14 +51,6 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    /*
-    fun getBruker(verdi: String) {
-        viewModelScope.launch {
-            val responseBruker : Response<RecordsBruker> = repository.getBruker(verdi)
-            mutableBrukerResponse.value = responseBruker
-        }
-    } */
-
     fun getBruker(verdi: String) {
         viewModelScope.launch {
             val responseBruker : Response<RecordsBruker> = repository.getBruker(verdi)
@@ -71,15 +60,13 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 
     fun endreBrukernavn(verdi: Int, brukers: Bruker) {
         viewModelScope.launch {
-            val responseEndreBrukernavn  = repository.endreBrukernavn(verdi, brukers)
-           // mutableEndreBrukerResponse.value = responseEndreBrukernavn
+            repository.endreBrukernavn(verdi, brukers)
         }
     }
 
     fun slettProve(proveNavn: String) {
         viewModelScope.launch {
-            val responseProvenSlett = repository.slettProve(proveNavn)
-           // mutableSlettProveResponse.value = responseProvenSlett
+            repository.slettProve(proveNavn)
         }
     }
 }
