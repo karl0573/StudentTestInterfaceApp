@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository): ViewModel() {
-    val mutableProveResponse: MutableLiveData<Response<Prove>> = MutableLiveData()
+    private val mutableProveResponse: MutableLiveData<Response<Prove>> = MutableLiveData()
     val mutableAlleProverResponse: MutableLiveData<Response<RecordsKort>> = MutableLiveData()
     val mutableProvenResponse: MutableLiveData<Response<RecordsTest>> = MutableLiveData()
     val mutableBrukerResponse: MutableLiveData<Response<RecordsBruker>> = MutableLiveData()

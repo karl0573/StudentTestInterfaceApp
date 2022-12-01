@@ -123,7 +123,7 @@ class ProfilActivity : AppCompatActivity(), ListeClickListener<Kort> {
         }
     }
 
-    fun updateView() {
+    private fun updateView() {
         binding.apply {
             btBekreft.visibility = View.GONE
             btAvbryt.visibility = View.GONE
